@@ -22,9 +22,7 @@ const SubmitFontPage = () => {
 
 	const onSubmit = async (data: FontSubmissionForm) => {
 		try {
-			// Check file type on the frontend
-			console.log('file type:', file.type);
-
+			
 			if (file && file.type !== 'application/x-zip-compressed') {
 				alert('Only .zip files are allowed');
 				return;
