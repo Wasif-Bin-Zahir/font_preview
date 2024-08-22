@@ -7,22 +7,22 @@ const fontsData = [
 	{
 		name: 'Roboto',
 		designer: 'Christian Robertson',
-		file: '../../../fonts.json/Roboto.ttf',
+		file: '/fonts/Roboto.ttf',
 	},
 	{
 		name: 'Open Sans',
 		designer: 'Steve Matteson',
-		file: '../../../fonts.json/OpenSans.ttf',
+		file: '/fonts/OpenSans.ttf',
 	},
 	{
 		name: 'Lato',
 		designer: 'Łukasz Dziedzic',
-		file: '../../../fonts.json/Lato.ttf',
+		file: '/fonts/Lato.ttf',
 	},
 	{
 		name: 'Montserrat',
 		designer: 'Julieta Ulanovsky',
-		file: '../../../fonts.json/Montserrat.ttf',
+		file: '/fonts/Montserrat.otf',
 	},
 ];
 
