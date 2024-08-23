@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import React, { useState, useEffect } from 'react';
 import '../../styles/globals.css';
+import Footer from '@/components/Footer';
 
 // Sample font data with correct paths
 const fontsData = [
@@ -85,8 +86,8 @@ const FontPreviewPage: React.FC = () => {
 	}, []);
 
 	return (
-		<div style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
-			<Navbar/>
+		<div style={{ margin: 'auto' }}>
+			<Navbar />
 			<nav
 				style={{
 					backgroundColor: '#FF6347',
@@ -98,12 +99,12 @@ const FontPreviewPage: React.FC = () => {
 			>
 				<input
 					type="text"
-					placeholder="Search..."
+					placeholder="Search Font Here"
 					style={{ padding: '5px', width: '300px', borderRadius: '4px' }}
 				/>
 			</nav>
 
-			<div style={{ marginTop: '20px' }}>
+			<div className="mx-[200px] mt-4">
 				<input
 					type="text"
 					placeholder="Type here to preview font"
@@ -120,69 +121,73 @@ const FontPreviewPage: React.FC = () => {
 
 			<div
 				style={{
-					margin: '20px 0',
+					margin: '20px 100px',
 					display: 'flex',
 					justifyContent: 'space-between',
 					alignItems: 'center',
 				}}
 			>
-				<div>
+				<div className="flex justify-center space-x-4 bg-orange-100 p-4 rounded-lg shadow-md">
 					<button
 						onClick={setUppercase}
-						style={{ fontSize: '24px', margin: '0 5px' }}
+						className="px-4 py-2 text-lg font-semibold text-white bg-orange-600 rounded-md hover:bg-orange-700 transition duration-300"
 					>
 						AA
 					</button>
 					<button
 						onClick={setCapitalize}
-						style={{ fontSize: '24px', margin: '0 5px' }}
+						className="px-4 py-2 text-lg font-semibold text-white bg-orange-600 rounded-md hover:bg-orange-700 transition duration-300"
 					>
 						Aa
 					</button>
 					<button
 						onClick={setLowercase}
-						style={{ fontSize: '24px', margin: '0 5px' }}
+						className="px-4 py-2 text-lg font-semibold text-white bg-orange-600 rounded-md hover:bg-orange-700 transition duration-300"
 					>
 						aa
 					</button>
 				</div>
-				<div style={{ display: 'flex', alignItems: 'center' }}>
-					<label style={{ marginRight: '10px' }}>Letter Spacing</label>
-					<input
-						type="range"
-						min="0"
-						max="20"
-						value={letterSpacing}
-						onChange={handleLetterSpacingChange}
-						style={{ margin: '0 20px' }}
-					/>
-					<label style={{ marginRight: '10px' }}>Font Size</label>
-					<input
-						type="range"
-						min="12"
-						max="48"
-						value={fontSize}
-						onChange={handleFontSizeChange}
-					/>
+
+				<div className="flex items-center space-x-6 p-4 bg-orange-100 rounded-lg shadow-md">
+					<div className="flex items-center space-x-2">
+						<label className="text-gray-700 font-medium">Letter Spacing</label>
+						<input
+							type="range"
+							min="0"
+							max="20"
+							value={letterSpacing}
+							onChange={handleLetterSpacingChange}
+							className="w-48 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+						/>
+						<span className="text-gray-700">{letterSpacing}px</span>
+					</div>
+
+					<div className="flex items-center space-x-2">
+						<label className="text-gray-700 font-medium">Font Size</label>
+						<input
+							type="range"
+							min="12"
+							max="48"
+							value={fontSize}
+							onChange={handleFontSizeChange}
+							className="w-48 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+						/>
+						<span className="text-gray-700">{fontSize}px</span>
+					</div>
 				</div>
 			</div>
 
 			<hr />
 
-			<div>
+			<div className="space-y-6">
 				{fontsData.map((font, index) => (
 					<div
 						key={index}
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							margin: '20px 0',
-							borderBottom: '1px solid #ccc',
-							paddingBottom: '10px',
-						}}
+						className="flex items-center space-x-6 border-b border-gray-300 pb-4 mx-24"
 					>
-						<div style={{ flex: 1 }}>
+						<div className="flex-1">
 							<p
+								className="text-gray-800"
 								style={{
 									fontFamily: font.name,
 									fontSize: `${fontSize}px`,
@@ -194,17 +199,27 @@ const FontPreviewPage: React.FC = () => {
 								{previewText}
 							</p>
 						</div>
-						<div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
-							<div style={{ flex: 1 }}>
-								<h3>{font.name}</h3>
-								<p>{font.designer}</p>
+						<div className="flex-1 flex items-center justify-between">
+							<div className="flex-1">
+								<h3 className="text-lg font-semibold text-gray-900">
+									{font.name}
+								</h3>
+								<p className="text-gray-700">{font.designer}</p>
 							</div>
-							<button style={{ margin: '0 10px' }}>Image Download</button>
-							<button>Font Download</button>
+							<div className="flex space-x-4">
+								<button className="px-3 py-1.5 bg-orange-100 text-orange-600 rounded-lg shadow-md hover:bg-orange-600 hover:text-white transition duration-300 text-sm">
+									Image Download
+								</button>
+								<button className="px-3 py-1.5 bg-orange-400 text-white rounded-lg shadow-md hover:bg-orange-600 transition duration-300 text-sm">
+									Font Download
+								</button>
+							</div>
 						</div>
 					</div>
 				))}
 			</div>
+
+			<Footer/>
 		</div>
 	);
 };

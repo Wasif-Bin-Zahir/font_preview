@@ -3,10 +3,10 @@
 import Image from 'next/image';
 
 const Navbar = () => {
-    return (
-      <nav>
-       <div>
-				<div className="navbar bg-neutral">
+	return (
+		<nav>
+			<div>
+				<div className="navbar bg-neutral px-[100px]">
 					<div className="flex-1">
 						<a href="/">
 							<Image
@@ -19,13 +19,13 @@ const Navbar = () => {
 						</a>
 					</div>
 					<div className="flex-none gap-2">
-						<div className="form-control ">
+						{/* <div className="form-control ">
 							<input
 								type="text"
 								placeholder="Search Font Here"
 								className="input input-bordered w-24 md:w-auto"
 							/>
-						</div>
+						</div> */}
 						<div className="dropdown dropdown-end">
 							<div
 								tabIndex={0}
@@ -60,47 +60,45 @@ const Navbar = () => {
 					</div>
 				</div>
 
-                	{/* Top Navigation Bar */}
-			<nav className="bg-gray-300 p-3">
-				<div className="flex justify-between items-center px-[30px]">
-					<div className="flex space-x-5">
-						<a
-							href="#"
-							className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
-						>
-							Authors
-						</a>
-						<a
-							href="#"
-							className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
-						>
-							Submit a font
-						</a>
-						<a
-							href="#"
-							className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
-						>
-							Forum
-						</a>
+				{/* Top Navigation Bar */}
+				<nav className="bg-gray-300 p-3 px-[75px]">
+					<div className="flex justify-between items-center px-[30px]">
+						<div className="flex space-x-5">
+							<a
+								href="#"
+								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
+							>
+								Authors
+							</a>
+							<a
+								href="#"
+								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
+							>
+								Submit a font
+							</a>
+							<a
+								href="#"
+								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
+							>
+								Forum
+							</a>
+						</div>
+						<div className="flex space-x-5 ">
+							<a
+								href="#"
+								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
+							>
+								Login
+							</a>
+							<a href="#" className="">
+								Register
+							</a>
+						</div>
 					</div>
-					<div className="flex space-x-5 ">
-						<a
-							href="#"
-							className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
-						>
-							Login
-						</a>
-						<a href="#" className="">
-							Register
-						</a>
-					</div>
-				</div>
-			</nav>
-
+				</nav>
 			</div>
-      </nav>
-    );
-  };
-  
-  export default Navbar;
-  
+		</nav>
+	);
+};
+
+export default Navbar;
