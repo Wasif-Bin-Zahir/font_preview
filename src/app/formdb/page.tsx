@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { fontSubmissionSchema } from '../../schemas/fontSubmissionSchema';
 import Navbar from '@/components/Navbar';
 import '../../../styles/globals.css';
+import Footer from '@/components/Footer';
 
 type FontSubmissionForm = z.infer<typeof fontSubmissionSchema>;
 
@@ -21,7 +22,6 @@ export default function SubmitFontPage() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<FontSubmissionForm>({
     resolver: zodResolver(fontSubmissionSchema),
   });
@@ -49,12 +49,13 @@ export default function SubmitFontPage() {
         formData.append('file', file);
       }
 
-      // Append form fields to FormData
-      console.log('Appending form fields to FormData:');
+      // Append boolean directly
+      formData.append('hasPermission', String(data.hasPermission));
+
+      // Append other form fields to FormData
       for (const [key, value] of Object.entries(data)) {
-        if (value !== undefined) {
+        if (key !== 'hasPermission' && value !== undefined) {
           console.log(`Field: ${key}, Value: ${value}`);
-          // Convert value to string if necessary
           formData.append(key, String(value));
         }
       }
@@ -84,7 +85,6 @@ export default function SubmitFontPage() {
         ref.current.value = '';
       }
     } catch (err) {
-      // Type assertion to Error
       const errorMessage = (err as Error).message || 'Error uploading file';
       console.log('Caught an error:', errorMessage);
       setError([errorMessage]);
@@ -97,24 +97,26 @@ export default function SubmitFontPage() {
       <Navbar />
 
       <nav className="bg-[#e4675f] p-3 text-white px-[20px]">
-        <div className="flex items-center">
+        <div className="flex items-center px-[80px]">
           <span className="mr-2">→</span>
           <span>Click to search</span>
         </div>
       </nav>
 
-      <div className="px-5 max-w-lg">
-        <h1 className="text-xl mb-4">Submit Font</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <div className="mx-auto max-w-lg mb-[40px] ">
+        <h1 className="text-3xl my-4 font-bold text-center">Submit Font</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
+              <p>Are you the designer and author of the font ?</p>
           <div>
             <label className="flex items-center">
+             
               <input
                 type="radio"
                 value="true"
                 {...register('hasPermission', { required: 'Permission is required.' })}
                 className="mr-2"
               />
-              Yes
+              Yes , this is my own work and I hold the right to it.
             </label>
             <label className="flex items-center mt-2">
               <input
@@ -123,7 +125,7 @@ export default function SubmitFontPage() {
                 {...register('hasPermission')}
                 className="mr-2"
               />
-              No
+              No , I found this font somewhere else.
             </label>
             {errors.hasPermission && (
               <p className="text-red-500 mt-1">
@@ -134,7 +136,7 @@ export default function SubmitFontPage() {
 
           <div>
             <label className="block">
-              Font Name (mandatory):
+              Font Name * :
               <input
                 type="text"
                 {...register('fontName')}
@@ -148,7 +150,7 @@ export default function SubmitFontPage() {
 
           <div>
             <label className="block">
-              Name of the Designer (mandatory):
+              Name of the Designer * :
               <input
                 type="text"
                 {...register('designerName')}
@@ -164,7 +166,7 @@ export default function SubmitFontPage() {
 
           <div>
             <label className="block">
-              Website of the Designer (optional):
+              Website of the Designer :
               <input
                 type="text"
                 {...register('designerWebsite')}
@@ -175,7 +177,7 @@ export default function SubmitFontPage() {
 
           <div>
             <label className="block">
-              Donation Link (optional):
+              Donation Link :
               <input
                 type="text"
                 {...register('donationLink')}
@@ -202,7 +204,7 @@ export default function SubmitFontPage() {
 
           <button
             type="submit"
-            className="px-5 py-2 bg-orange-500 text-white border-none cursor-pointer rounded"
+            className="px-5 py-2 bg-[#e4675f] text-white border-none cursor-pointer rounded"
           >
             Submit
           </button>
@@ -224,6 +226,8 @@ export default function SubmitFontPage() {
           )}
         </form>
       </div>
+
+      <Footer/>
     </div>
   );
 }

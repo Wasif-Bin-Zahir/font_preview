@@ -46,7 +46,7 @@ const Navbar = () => {
 								<li>
 									<a className="justify-between">
 										Profile
-										<span className="badge">New</span>
+										{/* <span className="badge">New</span> */}
 									</a>
 								</li>
 								<li>
@@ -65,22 +65,22 @@ const Navbar = () => {
 					<div className="flex justify-between items-center px-[30px]">
 						<div className="flex space-x-5">
 							<a
-								href="#"
+								href="/"
 								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
 							>
-								Authors
+								Home
 							</a>
 							<a
-								href="#"
+								href="/formdb"
 								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
 							>
 								Submit a font
 							</a>
 							<a
-								href="#"
+								href="/contactUs"
 								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
 							>
-								Forum
+								Contact Us
 							</a>
 						</div>
 						<div className="flex space-x-5 ">

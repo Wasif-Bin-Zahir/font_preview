@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import React, { useState, useEffect } from 'react';
 import '../../styles/globals.css';
 import Footer from '@/components/Footer';
+import Fontstat from '@/components/Fontstat';
 
 // Sample font data with correct paths
 const fontsData = [
@@ -218,7 +219,8 @@ const FontPreviewPage: React.FC = () => {
 					</div>
 				))}
 			</div>
-
+            
+			<Fontstat/>
 			<Footer/>
 		</div>
 	);
