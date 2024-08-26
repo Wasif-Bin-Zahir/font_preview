@@ -128,28 +128,28 @@ const FontPreviewPage: React.FC = () => {
 					alignItems: 'center',
 				}}
 			>
-				<div className="flex justify-center space-x-4 bg-orange-100 p-4 rounded-lg shadow-md">
+				<div className="flex justify-center space-x-4 ">
 					<button
 						onClick={setUppercase}
-						className="px-4 py-2 text-lg font-semibold text-white bg-orange-600 rounded-md hover:bg-orange-700 transition duration-300"
+						className="px-3 py-1 text-lg font-semibold text-white bg-orange-500 rounded-md hover:bg-orange-700 transition duration-300"
 					>
 						AA
 					</button>
 					<button
 						onClick={setCapitalize}
-						className="px-4 py-2 text-lg font-semibold text-white bg-orange-600 rounded-md hover:bg-orange-700 transition duration-300"
+						className="px-3 py-1 text-lg font-semibold text-white bg-orange-500 rounded-md hover:bg-orange-700 transition duration-300"
 					>
 						Aa
 					</button>
 					<button
 						onClick={setLowercase}
-						className="px-4 py-2 text-lg font-semibold text-white bg-orange-600 rounded-md hover:bg-orange-700 transition duration-300"
+						className="px-3 py-1 text-lg font-semibold text-white bg-orange-500 rounded-md hover:bg-orange-700 transition duration-300"
 					>
 						aa
 					</button>
 				</div>
 
-				<div className="flex items-center space-x-6 p-4 bg-orange-100 rounded-lg shadow-md">
+				<div className="flex items-center space-x-6 p-4 rounded-lg ">
 					<div className="flex items-center space-x-2">
 						<label className="text-gray-700 font-medium">Letter Spacing</label>
 						<input
@@ -160,7 +160,7 @@ const FontPreviewPage: React.FC = () => {
 							onChange={handleLetterSpacingChange}
 							className="w-48 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
 						/>
-						<span className="text-gray-700">{letterSpacing}px</span>
+						{/* <span className="text-gray-700">{letterSpacing}px</span> */}
 					</div>
 
 					<div className="flex items-center space-x-2">
@@ -173,7 +173,7 @@ const FontPreviewPage: React.FC = () => {
 							onChange={handleFontSizeChange}
 							className="w-48 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
 						/>
-						<span className="text-gray-700">{fontSize}px</span>
+						{/* <span className="text-gray-700">{fontSize}px</span> */}
 					</div>
 				</div>
 			</div>

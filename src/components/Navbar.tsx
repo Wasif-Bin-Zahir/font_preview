@@ -85,14 +85,14 @@ const Navbar = () => {
 						</div>
 						<div className="flex space-x-5 ">
 							<a
-								href="#"
+								href="/admin"
 								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
 							>
-								Login
+								Admin Login
 							</a>
-							<a href="#" className="">
+							{/* <a href="#" className="">
 								Register
-							</a>
+							</a> */}
 						</div>
 					</div>
 				</nav>
