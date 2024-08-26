@@ -1,13 +1,13 @@
 "use client"
 
-import Navbar from "@/components/Navbar"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { fontSubmissionSchema } from "../../schemas/fontSubmissionSchema"
+import { fontSubmissionSchema, type FontSubmissionForm } from "./validation"
 
-type FontSubmissionForm = z.infer<typeof fontSubmissionSchema>
+
+
 
 export default function SubmitFontPage() {
   const [file, setFile] = useState<File | null>(null)
@@ -55,8 +55,6 @@ export default function SubmitFontPage() {
         }
       }
 
-      console.log("gese")
-
       const res = await fetch("http://localhost:3000/api/upload", {
         method: "POST",
         body: formData,
@@ -91,7 +89,7 @@ export default function SubmitFontPage() {
 
   return (
     <div className="font-sans m-0 bg-[#dfdfdf]">
-      <Navbar />
+      
 
       <nav className="bg-[#e4675f] p-3 text-white px-[20px]">
         <div className="flex items-center px-[80px]">

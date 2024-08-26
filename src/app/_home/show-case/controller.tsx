@@ -29,19 +29,19 @@ export default function Controller({
       <div className="flex justify-center space-x-4 ">
         <button
           onClick={() => setTextTransform("uppercase")}
-          className="px-3 py-1 text-lg font-semibold text-white bg-orange-500 rounded-md hover:bg-orange-700 transition duration-300"
+          className="px-3 py-1 text-lg font-semibold border border-orange-500 rounded-md hover:bg-orange-500 transition duration-300"
         >
           AA
         </button>
         <button
           onClick={() => setTextTransform("capitalize")}
-          className="px-3 py-1 text-lg font-semibold text-white bg-orange-500 rounded-md hover:bg-orange-700 transition duration-300"
+          className="px-3 py-1 text-lg font-semibold border border-orange-500 rounded-md hover:bg-orange-500 transition duration-300"
         >
           Aa
         </button>
         <button
           onClick={() => setTextTransform("lowercase")}
-          className="px-3 py-1 text-lg font-semibold text-white bg-orange-500 rounded-md hover:bg-orange-700 transition duration-300"
+          className="px-3 py-1 text-lg font-semibold border border-orange-500 rounded-md hover:bg-orange-500 transition duration-300"
         >
           aa
         </button>
@@ -52,14 +52,19 @@ export default function Controller({
           <label className="text-gray-700 font-medium">Letter Spacing</label>
 
           <input
-            type="range"
-            min="0"
-            max="20"
-            value={letterSpacing}
-            onChange={(e) => setLetterSpacing(Number(e.target.value))}
-            className="w-48 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
-          />
-          {/* <span className="text-gray-700">{letterSpacing}px</span> */}
+  type="range"
+  min="0"
+  max="20"
+  value={letterSpacing}
+  onChange={(e) => setLetterSpacing(Number(e.target.value))}
+  className="w-48 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer
+             accent-orange-500"
+  style={{
+    WebkitAppearance: 'none',
+    appearance: 'none'
+  }}
+/>
+
         </div>
 
         <div className="flex items-center space-x-2">

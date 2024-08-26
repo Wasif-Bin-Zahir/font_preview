@@ -25,13 +25,13 @@ const fontSubmissionSchema = new Schema({
 	designerWebsite: {
 		type: String,
 		trim: true,
-		match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Invalid website URL'], // Optional URL validation
+		// match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Invalid website URL'], // Optional URL validation
 	},
 
 	donationLink: {
 		type: String,
 		trim: true,
-		match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Invalid donation link'], // Optional URL validation
+		// match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Invalid donation link'], // Optional URL validation
 	},
 
 	file: {
@@ -45,8 +45,8 @@ const fontSubmissionSchema = new Schema({
 	},
 });
 
-const FontSubmission =
-	mongoose.models.FontSubmission ||
-	mongoose.model('FontSubmission', fontSubmissionSchema);
+const Font =
+	mongoose.models.Font ||
+	mongoose.model('Font', fontSubmissionSchema);
 
-export default FontSubmission;
+export default Font;

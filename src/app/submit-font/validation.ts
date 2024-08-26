@@ -13,3 +13,7 @@ export const fontSubmissionSchema = z.object({
     })
     .transform((val) => val === "true"),
 })
+
+export type FontSubmissionForm = z.infer<typeof fontSubmissionSchema>
+
+

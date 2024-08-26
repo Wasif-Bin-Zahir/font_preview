@@ -71,7 +71,7 @@ const Navbar = () => {
 								Home
 							</a>
 							<a
-								href="/formdb"
+								href="/submit-font"
 								className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
 							>
 								Submit a font
