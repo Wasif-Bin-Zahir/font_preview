@@ -1,22 +1,20 @@
-'use client';
+"use client"
 
-import { useState, useRef, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { fontSubmissionSchema } from '../../schemas/fontSubmissionSchema';
-import Navbar from '@/components/Navbar';
-import '../../../styles/globals.css';
-import Footer from '@/components/Footer';
+import Navbar from "@/components/Navbar"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect, useRef, useState } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { fontSubmissionSchema } from "../../schemas/fontSubmissionSchema"
 
-type FontSubmissionForm = z.infer<typeof fontSubmissionSchema>;
+type FontSubmissionForm = z.infer<typeof fontSubmissionSchema>
 
 export default function SubmitFontPage() {
-  const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string[]>([]);
-  const [success, setSuccess] = useState(false);
+  const [file, setFile] = useState<File | null>(null)
+  const [error, setError] = useState<string[]>([])
+  const [success, setSuccess] = useState(false)
 
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLInputElement>(null)
 
   const {
     register,
@@ -24,73 +22,72 @@ export default function SubmitFontPage() {
     formState: { errors },
   } = useForm<FontSubmissionForm>({
     resolver: zodResolver(fontSubmissionSchema),
-  });
+  })
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'light');
-  }, []);
+    document.documentElement.setAttribute("data-theme", "light")
+  }, [])
 
   const onSubmit = async (data: FontSubmissionForm) => {
-    console.log('Form data before submission:', data);
-    console.log('Selected file:', file);
-
     try {
-      if (file && file.type !== 'application/x-zip-compressed') {
-        console.log('File type is not allowed:', file.type);
-        setError(['Only .zip files are allowed']);
-        return;
+      if (file && file.type !== "application/x-zip-compressed") {
+        console.log("File type is not allowed:", file.type)
+        setError(["Only .zip files are allowed"])
+        return
       }
 
-      const formData = new FormData();
+      const formData = new FormData()
 
       // Append file to FormData if it exists
       if (file) {
-        console.log('Appending file to FormData:', file);
-        formData.append('file', file);
+        console.log("Appending file to FormData:", file)
+        formData.append("file", file)
       }
 
       // Append boolean directly
-      formData.append('hasPermission', String(data.hasPermission));
+      formData.append("hasPermission", String(data.hasPermission))
 
       // Append other form fields to FormData
       for (const [key, value] of Object.entries(data)) {
-        if (key !== 'hasPermission' && value !== undefined) {
-          console.log(`Field: ${key}, Value: ${value}`);
-          formData.append(key, String(value));
+        if (key !== "hasPermission" && value !== undefined) {
+          console.log(`Field: ${key}, Value: ${value}`)
+          formData.append(key, String(value))
         }
       }
 
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      console.log("gese")
 
-      const result = await res.json();
-      console.log('Response from server:', result);
+      const res = await fetch("http://localhost:3000/api/upload", {
+        method: "POST",
+        body: formData,
+      })
+
+      const result = await res.json()
+      console.log("Response from server:", result)
 
       if (!res.ok) {
         console.log(
-          'Server responded with an error:',
-          result.message || 'Error uploading file'
-        );
-        setError([result.message || 'Error uploading file']);
-        setSuccess(false);
-        return;
+          "Server responded with an error:",
+          result.message || "Error uploading file",
+        )
+        setError([result.message || "Error uploading file"])
+        setSuccess(false)
+        return
       }
 
-      console.log('File uploaded successfully');
-      setSuccess(true);
-      setError([]);
+      console.log("File uploaded successfully")
+      setSuccess(true)
+      setError([])
       if (ref.current) {
-        ref.current.value = '';
+        ref.current.value = ""
       }
     } catch (err) {
-      const errorMessage = (err as Error).message || 'Error uploading file';
-      console.log('Caught an error:', errorMessage);
-      setError([errorMessage]);
-      setSuccess(false);
+      const errorMessage = (err as Error).message || "Error uploading file"
+      console.log("Caught an error:", errorMessage)
+      setError([errorMessage])
+      setSuccess(false)
     }
-  };
+  }
 
   return (
     <div className="font-sans m-0 bg-[#dfdfdf]">
@@ -105,15 +102,19 @@ export default function SubmitFontPage() {
 
       <div className="mx-auto max-w-lg mb-[40px] ">
         <h1 className="text-3xl my-4 font-bold text-center">Submit Font</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
-              <p>Are you the designer and author of the font ?</p>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 "
+        >
+          <p>Are you the designer and author of the font ?</p>
           <div>
             <label className="flex items-center">
-             
               <input
                 type="radio"
                 value="true"
-                {...register('hasPermission', { required: 'Permission is required.' })}
+                {...register("hasPermission", {
+                  required: "Permission is required.",
+                })}
                 className="mr-2"
               />
               Yes , this is my own work and I hold the right to it.
@@ -122,7 +123,7 @@ export default function SubmitFontPage() {
               <input
                 type="radio"
                 value="false"
-                {...register('hasPermission')}
+                {...register("hasPermission")}
                 className="mr-2"
               />
               No , I found this font somewhere else.
@@ -139,7 +140,7 @@ export default function SubmitFontPage() {
               Font Name * :
               <input
                 type="text"
-                {...register('fontName')}
+                {...register("fontName")}
                 className="w-full p-2 mt-1 border border-gray-300 rounded"
               />
               {errors.fontName && (
@@ -153,7 +154,7 @@ export default function SubmitFontPage() {
               Name of the Designer * :
               <input
                 type="text"
-                {...register('designerName')}
+                {...register("designerName")}
                 className="w-full p-2 mt-1 border border-gray-300 rounded"
               />
               {errors.designerName && (
@@ -169,7 +170,7 @@ export default function SubmitFontPage() {
               Website of the Designer :
               <input
                 type="text"
-                {...register('designerWebsite')}
+                {...register("designerWebsite")}
                 className="w-full p-2 mt-1 border border-gray-300 rounded"
               />
             </label>
@@ -180,7 +181,7 @@ export default function SubmitFontPage() {
               Donation Link :
               <input
                 type="text"
-                {...register('donationLink')}
+                {...register("donationLink")}
                 className="w-full p-2 mt-1 border border-gray-300 rounded"
               />
             </label>
@@ -192,10 +193,7 @@ export default function SubmitFontPage() {
               <input
                 type="file"
                 accept=".zip"
-                onChange={(e) => {
-                  console.log('File selected:', e.target.files?.[0]);
-                  setFile(e.target.files?.[0] || null);
-                }}
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
                 ref={ref}
                 className="block mt-2"
               />
@@ -226,8 +224,6 @@ export default function SubmitFontPage() {
           )}
         </form>
       </div>
-
-      <Footer/>
     </div>
-  );
+  )
 }
