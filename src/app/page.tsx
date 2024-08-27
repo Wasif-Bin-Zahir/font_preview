@@ -29,7 +29,6 @@ const fontsData = [
 export default function Home() {
   return (
     <div className="mx-auto">
-      <Navbar />
 
       <nav
         className="flex justify-center items-center p-3"

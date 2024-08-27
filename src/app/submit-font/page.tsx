@@ -3,11 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { fontSubmissionSchema, type FontSubmissionForm } from "./validation"
-
-
-
 
 export default function SubmitFontPage() {
   const [file, setFile] = useState<File | null>(null)
@@ -73,6 +69,39 @@ export default function SubmitFontPage() {
         return
       }
 
+      // Cloudinary upload code (commented out)
+      /*
+      if (file) {
+        const cloudinaryFormData = new FormData()
+        cloudinaryFormData.append("file", file)
+        cloudinaryFormData.append("upload_preset", "your_upload_preset")
+
+        const cloudinaryRes = await fetch(
+          `https://api.cloudinary.com/v1_1/your_cloud_name/upload`,
+          {
+            method: "POST",
+            body: cloudinaryFormData,
+          },
+        )
+
+        const cloudinaryResult = await cloudinaryRes.json()
+
+        if (!cloudinaryRes.ok) {
+          console.log(
+            "Cloudinary responded with an error:",
+            cloudinaryResult.error?.message || "Error uploading to Cloudinary"
+          )
+          setError([
+            cloudinaryResult.error?.message || "Error uploading to Cloudinary",
+          ])
+          setSuccess(false)
+          return
+        }
+
+        console.log("File uploaded to Cloudinary successfully")
+      }
+      */
+
       console.log("File uploaded successfully")
       setSuccess(true)
       setError([])
@@ -89,8 +118,6 @@ export default function SubmitFontPage() {
 
   return (
     <div className="font-sans m-0 bg-[#dfdfdf]">
-      
-
       <nav className="bg-[#e4675f] p-3 text-white px-[20px]">
         <div className="flex items-center px-[80px]">
           <span className="mr-2">→</span>
@@ -98,13 +125,10 @@ export default function SubmitFontPage() {
         </div>
       </nav>
 
-      <div className="mx-auto max-w-lg mb-[40px] ">
+      <div className="mx-auto max-w-lg mb-[40px]">
         <h1 className="text-3xl my-4 font-bold text-center">Submit Font</h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 "
-        >
-          <p>Are you the designer and author of the font ?</p>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <p>Are you the designer and author of the font?</p>
           <div>
             <label className="flex items-center">
               <input
@@ -115,7 +139,7 @@ export default function SubmitFontPage() {
                 })}
                 className="mr-2"
               />
-              Yes , this is my own work and I hold the right to it.
+              Yes, this is my own work and I hold the right to it.
             </label>
             <label className="flex items-center mt-2">
               <input
@@ -124,7 +148,7 @@ export default function SubmitFontPage() {
                 {...register("hasPermission")}
                 className="mr-2"
               />
-              No , I found this font somewhere else.
+              No, I found this font somewhere else.
             </label>
             {errors.hasPermission && (
               <p className="text-red-500 mt-1">
@@ -187,7 +211,7 @@ export default function SubmitFontPage() {
 
           <div>
             <label className="block">
-              Font Upload (title file .tff or .zip):
+              Font Upload (file .zip only):
               <input
                 type="file"
                 accept=".zip"

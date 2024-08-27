@@ -1,15 +1,9 @@
 import fs from "fs";
 import { NextResponse } from "next/server";
 import path from "path";
-import cloudinary from "cloudinary";
 import connectDB from "@/lib/mongodb";
 import Font from "@/models/Form";
-
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import AdmZip from "adm-zip";
 
 // Disable Next.js body parser to handle form-data
 export const config = {
@@ -32,45 +26,67 @@ export async function POST(req: any) {
     const hasPermission = formData.get("hasPermission") === "true";
     const file = formData.get("file");
 
-    let filePath = null;
-    if (file) {
+    let filePaths: string[] = []; // Array to store the local file paths
+
+    if (file && file.type === "application/x-zip-compressed") {
       const buffer = Buffer.from(await file.arrayBuffer());
 
-      if (!fs.existsSync(UPLOAD_DIR)) {
-        fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+      if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR);
+
+      const zipFilePath = path.join(UPLOAD_DIR, file.name);
+      fs.writeFileSync(zipFilePath, buffer);
+
+      const extractedDir = path.join(
+        process.cwd(),
+        `/files/${Math.floor(1000000 + Math.random() * 9000000)}`
+      );
+      try {
+        const zip = new AdmZip(zipFilePath);
+        zip.extractAllTo(extractedDir);
+      } catch (e) {
+        console.log("Unzip error:", e);
       }
 
-      filePath = path.join(UPLOAD_DIR, file.name);
-      fs.writeFileSync(filePath, buffer);
+      const files = fs.readdirSync(extractedDir);
 
-      const result = await cloudinary.v2.uploader.upload(filePath, {
-        resource_type: "raw",
+      files.forEach((fontFile) => {
+        const filePath = path.join(extractedDir, fontFile);
+        filePaths.push(filePath); // Save the local file path
       });
 
-      fs.unlink(filePath, () => {});
-      filePath = result.secure_url; // Store Cloudinary URL in database
+      console.log(filePaths);
+
+      // Optionally, remove the original zip file after extraction
+      // fs.unlink(zipFilePath, () => {});
+    } else {
+      throw new Error("Only .zip files are allowed");
     }
 
-    // Save the form data to the MongoDB database
+    // Save the form data and file paths to the MongoDB database
     const newFont = await new Font({
       hasPermission,
       fontName,
       designerName,
       designerWebsite,
       donationLink,
-      file: filePath, // Store file URL
+      files: filePaths, // Store file paths as an array
     }).save();
 
-    return NextResponse.json({ status: "success", message: "Form data saved successfully" });
+    return NextResponse.json({
+      status: "success",
+      message: "Form data saved successfully",
+      data: newFont, // Return the saved data
+    });
   } catch (error) {
     console.error("Error uploading file:", error);
 
-    // Type guard to check if the error is an instance of Error
     if (error instanceof Error) {
       return NextResponse.json({ status: "error", message: error.message });
     } else {
-      // Handle cases where the error might not be an instance of Error
-      return NextResponse.json({ status: "error", message: "An unknown error occurred." });
+      return NextResponse.json({
+        status: "error",
+        message: "An unknown error occurred.",
+      });
     }
   }
 }

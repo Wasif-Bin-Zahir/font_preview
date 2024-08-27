@@ -25,13 +25,11 @@ const fontSubmissionSchema = new Schema({
 	designerWebsite: {
 		type: String,
 		trim: true,
-		// match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Invalid website URL'], // Optional URL validation
 	},
 
 	donationLink: {
 		type: String,
 		trim: true,
-		// match: [/^https?:\/\/[^\s/$.?#].[^\s]*$/, 'Invalid donation link'], // Optional URL validation
 	},
 
 	file: {
