@@ -1,13 +1,11 @@
 'use client';
 
 import Navbar from '@/components/Navbar';
-import '../../../styles/globals.css';
 import Footer from '@/components/Footer';
 
 export default function ContactUsPage() {
   return (
     <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
-      <Navbar />
       <div className="flex-grow container mx-auto px-5 py-10">
         <h1 className="text-3xl font-bold text-center mb-10">Contact Us</h1>
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl mx-auto flex flex-col md:flex-row">
@@ -84,7 +82,6 @@ export default function ContactUsPage() {
         </div>
       </div>
          
-         <Footer/>
     </div>
   );
 }

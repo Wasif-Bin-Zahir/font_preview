@@ -45,15 +45,10 @@ export default function View({
               <p className="text-gray-700">{font.designer}</p>
             </div>
 
-            <div className="flex space-x-4">
-              <button className="px-3 py-1.5 bg-orange-100 text-orange-600 rounded-lg shadow-md hover:bg-orange-600 hover:text-white transition duration-300 text-sm">
-                Image Download
-              </button>
-
-              <button className="px-3 py-1.5 bg-orange-400 text-white rounded-lg shadow-md hover:bg-orange-600 transition duration-300 text-sm">
+        
+              <button className="px-3 py-1.5 font-bold text-gray-500 rounded-lg  border border-orange-500 shadow-md hover:bg-orange-400 hover:text-white transition duration-300 text-sm">
                 Font Download
               </button>
-            </div>
           </div>
         </div>
       ))}

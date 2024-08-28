@@ -117,13 +117,13 @@ export default function SubmitFontPage() {
   }
 
   return (
-    <div className="font-sans m-0 bg-[#dfdfdf]">
-      <nav className="bg-[#e4675f] p-3 text-white px-[20px]">
+    <div className="font-sans m-0 ">
+      {/* <nav className="bg-[#e4675f] p-3 text-white px-[20px] bg-[#dfdfdf]">
         <div className="flex items-center px-[80px]">
           <span className="mr-2">→</span>
           <span>Click to search</span>
         </div>
-      </nav>
+      </nav> */}
 
       <div className="mx-auto max-w-lg mb-[40px]">
         <h1 className="text-3xl my-4 font-bold text-center">Submit Font</h1>

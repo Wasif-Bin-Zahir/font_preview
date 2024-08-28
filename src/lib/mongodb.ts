@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const connectDB = async () => {
   try {
     // Check if already connected to avoid unnecessary connections
