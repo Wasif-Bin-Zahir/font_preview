@@ -13,18 +13,13 @@ export default async function Home() {
 
    return (
       <div className="mx-auto">
-         <nav
-            className="flex justify-center items-center p-3"
-            style={{
-               backgroundColor: '#FF6347'
-            }}
-         >
+         <div className="flex justify-center items-center p-3">
             <input
                type="text"
                placeholder="Search Font Here"
                className="bg-white border-2 border-gray-300"
             />
-         </nav>
+         </div>
 
          <hr />
 

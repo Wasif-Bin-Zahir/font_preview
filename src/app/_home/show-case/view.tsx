@@ -63,7 +63,7 @@ export default function View({
                      <p className="text-gray-700">{font.designer}</p>
                   </div>
 
-                  <a href={`/fonts/${font.download}.zip`}>
+                  <a href={`${font.download}`}>
                      <button className="px-3 py-1.5 font-bold text-gray-500 rounded-lg  border border-orange-500 shadow-md hover:bg-orange-400 hover:text-white transition duration-300 text-sm">
                         Font Download
                      </button>

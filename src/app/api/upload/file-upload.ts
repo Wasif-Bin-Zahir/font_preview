@@ -1,9 +1,10 @@
 import fs from 'fs'
-import path from 'path'
 import { nanoid } from 'nanoid'
+import path from 'path'
+import slugify from 'slugify'
 import { zip } from 'zip-a-folder'
 
-export default async function fileUpload(files: any) {
+export default async function fileUpload(name: string, files: File[]) {
    const folderID = nanoid()
    const UPLOAD_DIR = `./public/files/${folderID}`
    const fonts: string[] = []
@@ -17,12 +18,6 @@ export default async function fileUpload(files: any) {
          fs.writeFileSync(filePath, buffer) // Write file to disk
 
          const relativePath = `/files/${folderID}/${file.name}`
-         console.log(
-            'File uploaded:',
-            relativePath,
-            file.type,
-            file.type.includes('font')
-         )
 
          if (
             file.type.includes('font') ||
@@ -34,7 +29,10 @@ export default async function fileUpload(files: any) {
       })
    )
 
-   await zip(UPLOAD_DIR, `./public/fonts/${folderID}.zip`)
+   fs.mkdirSync(`./public/fonts/${folderID}`, { recursive: true })
+   const download = `/fonts/${folderID}/${slugify(name)}.zip`
 
-   return { filePaths, preview: fonts[0], download: folderID }
+   await zip(UPLOAD_DIR, `./public${download}`)
+
+   return { filePaths, preview: fonts[0], download }
 }

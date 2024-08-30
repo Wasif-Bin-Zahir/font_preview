@@ -11,8 +11,6 @@ interface FontData {
 export default async function AdminFontApprovalPage() {
    const data = await Font.find()
 
- 
-
    const rejectFont = async (id: string) => {
       // Send rejection request to the server
       await fetch(`/api/fonts/${id}/reject`, { method: 'POST' })
@@ -54,7 +52,7 @@ export default async function AdminFontApprovalPage() {
                            >
                               <td className="py-3 px-5">{font.designer}</td>
                               <td className="py-3 px-5 text-center mr-2">
-                                 {font.font}
+                                 {font.name}
                               </td>
                               <td className="py-3 px-5 text-right">
                                  {/* <button
@@ -70,7 +68,7 @@ export default async function AdminFontApprovalPage() {
                                     Reject
                                  </button> */}
 
-                                 <Status id={font._id} status={font.status}/>
+                                 <Status id={font._id} status={font.status} />
                               </td>
                            </tr>
                         ))}

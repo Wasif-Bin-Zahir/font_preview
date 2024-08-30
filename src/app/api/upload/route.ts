@@ -10,8 +10,7 @@ export async function POST(req: NextRequest) {
 
       const { extractedFormData, files } = await extractFormData(req)
       const { name, designer, web, donation } = extractedFormData
-
-      const { filePaths, preview, download } = await fileUpload(files)
+      const { filePaths, preview, download } = await fileUpload(name, files)
 
       await new Font({
          name,
