@@ -1,74 +1,35 @@
-import Navbar from "@/components/Navbar"
-import FontStats from "@/components/font-stats"
-import ShowCase from "./_home/show-case"
+import FontStats from '@/components/font-stats'
+import connectDB from '@/lib/mongodb'
+import Font from '@/models/Font'
+import ShowCase, { type FontType } from './_home/show-case'
 
-// Sample font data with correct paths
-const fontsData = [
-  {
-    name: "Roboto",
-    designer: "Christian Robertson",
-    path: "/fonts/Roboto.ttf",
-  },
-  {
-    name: "Open Sans",
-    designer: "Steve Matteson",
-    path: "/fonts/OpenSans.ttf",
-  },
-  {
-    name: "Lato",
-    designer: "Łukasz Dziedzic",
-    path: "/fonts/Lato.ttf",
-  },
-  {
-    name: "Montserrat",
-    designer: "Julieta Ulanovsky",
-    path: "/fonts/Montserrat.otf",
-  },
-]
+export const dynamic = 'force-dynamic'
 
-export default function Home() {
-  return (
-    <div className="mx-auto">
+export default async function Home() {
+   await connectDB()
+   const fonts: FontType[] = await Font.find({ status: true })
+      .select('name designer preview download')
+      .lean()
 
-      <nav
-        className="flex justify-center items-center p-3"
-        style={{
-          backgroundColor: "#FF6347",
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search Font Here"
-          style={{ padding: "5px", width: "300px", borderRadius: "4px" }}
-        />
-      </nav>
+   return (
+      <div className="mx-auto">
+         <nav
+            className="flex justify-center items-center p-3"
+            style={{
+               backgroundColor: '#FF6347'
+            }}
+         >
+            <input
+               type="text"
+               placeholder="Search Font Here"
+               className="bg-white border-2 border-gray-300"s
+            />
+         </nav>
 
-      <hr />
+         <hr />
 
-      <ShowCase fonts={fontsData} />
-      <FontStats />
-    </div>
-  )
+         <ShowCase fonts={fonts} />
+         <FontStats />
+      </div>
+   )
 }
-
-// Dynamically load fonts by adding @font-face declarations
-// useEffect(() => {
-//   const style = document.createElement("style")
-//   document.head.appendChild(style)
-
-//   fontsData.forEach((font) => {
-//     const fontFace = new FontFace(font.name, `url(${font.file})`)
-//     fontFace
-//       .load()
-//       .then((loadedFace) => {
-//         document.fonts.add(loadedFace)
-//       })
-//       .catch((err) => {
-//         console.error(`Failed to load font: ${font.name}`, err)
-//       })
-//   })
-
-//   return () => {
-//     document.head.removeChild(style)
-//   }
-// }, [])

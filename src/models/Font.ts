@@ -1,26 +1,33 @@
 import { Schema, model, models } from 'mongoose'
-import { boolean } from 'zod'
 
 const FontSchema = new Schema(
    {
-      fontName: {
+      name: {
          type: String,
          required: true
       },
-      designerName: {
+      preview: {
          type: String,
          required: true
       },
-      designerWebsite: {
+      designer: {
+         type: String,
+         required: true
+      },
+      web: {
          type: String,
          required: false
       },
-      donationLink: {
+      donation: {
          type: String,
          required: false
       },
       files: {
          type: [String],
+         required: true
+      },
+      download: {
+         type: String,
          required: true
       },
       status: {

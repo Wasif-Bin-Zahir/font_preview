@@ -52,9 +52,9 @@ export default async function AdminFontApprovalPage() {
                               key={font._id}
                               className="border-b border-gray-200"
                            >
-                              <td className="py-3 px-5">{font.designerName}</td>
+                              <td className="py-3 px-5">{font.designer}</td>
                               <td className="py-3 px-5 text-center mr-2">
-                                 {font.fontName}
+                                 {font.font}
                               </td>
                               <td className="py-3 px-5 text-right">
                                  {/* <button

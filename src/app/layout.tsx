@@ -1,24 +1,28 @@
-import Footer from "@/components/Footer"
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import { getServerSession } from "next-auth"
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import SessionProvider from '@/components/SessionProvider'
+import { getServerSession } from 'next-auth'
+import { Toaster } from 'react-hot-toast'
+import './globals.css'
 
 export default async function RootLayout({
-  children,
+   children
 }: {
-  children: React.ReactNode
+   children: React.ReactNode
 }) {
-  const session = await getServerSession()
-  return (
-    <html lang="en">
-      <body>
-        <SessionProvider session={session}>
-          <Navbar />
-          {children}
-          <Footer />
-        </SessionProvider>
-      </body>
-    </html>
-  )
+   const session = await getServerSession()
+
+   return (
+      <html lang="en">
+         <body>
+            <Toaster />
+
+            <SessionProvider session={session}>
+               <Navbar />
+               <main className="p-7">{children}</main>
+               <Footer />
+            </SessionProvider>
+         </body>
+      </html>
+   )
 }
