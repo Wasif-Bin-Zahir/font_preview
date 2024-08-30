@@ -22,7 +22,7 @@ export default async function Home() {
             <input
                type="text"
                placeholder="Search Font Here"
-               className="bg-white border-2 border-gray-300"s
+               className="bg-white border-2 border-gray-300"
             />
          </nav>
 
