@@ -5,8 +5,8 @@ export const fontSubmissionSchema = z.object({
    designer: z.string().min(1, { message: 'Designer name is required' }),
    web: z.string().optional(),
    donation: z.string().optional(),
-   oath: z.boolean({
-      required_error: 'Please confirm this statement'
+   oath: z.boolean().refine((value) => value === true, {
+      message: 'Please confirm this statement'
    }),
    files: z.any()
 })

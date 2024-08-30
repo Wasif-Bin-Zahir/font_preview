@@ -20,8 +20,6 @@ export default function ShowCase({ fonts }: { fonts: FontType[] }) {
    const [letterSpacing, setLetterSpacing] = useState(0)
    const [textTransform, setTextTransform] = useState<TextTransform>('none')
 
-
-
    return (
       <>
          <PreviewInput

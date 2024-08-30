@@ -1,34 +1,15 @@
 // src/components/layout/Navbar.tsx
 'use client'
 
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { signIn, signOut, useSession } from 'next-auth/react'
-
-function AuthButton() {
-   const { data: session } = useSession()
-
-   if (session) {
-      return (
-         <>
-            {session?.user?.name} <br />
-            <button onClick={() => signOut()}> Sign Out</button>
-         </>
-      )
-
-      return (
-         <>
-            Not signed in <br />
-            <button onClick={() => signIn()}>Sign In</button>
-         </>
-      )
-   }
-}
 
 const Navbar = () => {
+   const { data: session } = useSession()
+
    return (
       <nav>
-         <AuthButton />
          <div>
             <div className="navbar bg-neutral px-[100px]">
                <div className="flex-1">
@@ -43,44 +24,51 @@ const Navbar = () => {
                   </a>
                </div>
                <div className="flex-none gap-2">
-                  {/* <div className="form-control ">
-							<input
-								type="text"
-								placeholder="Search Font Here"
-								className="input input-bordered w-24 md:w-auto"
-							/>
-						</div> */}
-                  <div className="dropdown dropdown-end">
-                     <div
-                        tabIndex={0}
-                        role="button"
-                        className="btn btn-ghost btn-circle avatar"
-                     >
-                        <div className="w-10 rounded-full">
-                           <img
-                              alt="Tailwind CSS Navbar component"
-                              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                           />
+                  {session?.user?.image ? (
+                     <div className="dropdown dropdown-end">
+                        <div
+                           tabIndex={0}
+                           role="button"
+                           className="btn btn-ghost btn-circle avatar"
+                        >
+                           <div className="w-10 rounded-full">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                 alt="Tailwind CSS Navbar component"
+                                 src={session?.user?.image!}
+                              />
+                           </div>
                         </div>
+                        <ul
+                           tabIndex={0}
+                           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                        >
+                           <Link
+                              href="/admin/dashboard"
+                              className="cursor-pointer"
+                           >
+                              <li className="cursor-pointer">Dashboard</li>
+                           </Link>
+                           <li
+                              className="cursor-pointer"
+                              onClick={() =>
+                                 signOut({
+                                    redirect: false
+                                 })
+                              }
+                           >
+                              Logout
+                           </li>
+                        </ul>
                      </div>
-                     <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                  ) : (
+                     <button
+                        onClick={() => signIn('google')}
+                        className="relative after:content-['|'] after:ml-5 text-white last:after:content-none"
                      >
-                        <li>
-                           <a className="justify-between">
-                              Profile
-                              {/* <span className="badge">New</span> */}
-                           </a>
-                        </li>
-                        <li>
-                           <a>Settings</a>
-                        </li>
-                        <li>
-                           <a>Logout</a>
-                        </li>
-                     </ul>
-                  </div>
+                        Admin Login
+                     </button>
+                  )}
                </div>
             </div>
 
@@ -107,17 +95,7 @@ const Navbar = () => {
                         Contact Us
                      </a>
                   </div>
-                  <div className="flex space-x-5 ">
-                     <a
-                        href="/admin/login"
-                        className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
-                     >
-                        Admin Login
-                     </a>
-                     {/* <a href="#" className="">
-								Register
-							</a> */}
-                  </div>
+                  <div className="flex space-x-5 "></div>
                </div>
             </nav>
          </div>

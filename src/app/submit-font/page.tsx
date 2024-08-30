@@ -4,8 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { fontSubmissionSchema, type FontSubmissionForm } from './validation'
 import toast from 'react-hot-toast'
+import { useState } from 'react'
 
 export default function SubmitFontPage() {
+   const [agree, setAgree] = useState(false)
+
    const {
       register,
       handleSubmit,
@@ -119,22 +122,24 @@ export default function SubmitFontPage() {
                />
             </div>
 
-            <div className="flex items-center my-3">
-               <input
-                  className="mr-3 w-7 h-7 cursor-pointer"
-                  type="checkbox"
-                  id="oath"
-                  disabled={isSubmitting}
-                  {...register('oath', { required: 'This field is required' })}
-               />
+            <div>
+               <div className="flex items-center my-3">
+                  <input
+                     className="mr-3 w-7 h-7 cursor-pointer"
+                     type="checkbox"
+                     id="oath"
+                     disabled={isSubmitting}
+                     {...register('oath')}
+                  />
 
-               <label
-                  htmlFor="oath"
-                  className="font-medium cursor-pointer text-lg"
-               >
-                  This work is solely mine, and I retain all rights to it.
-               </label>
-
+                  <label
+                     htmlFor="oath"
+                     className="font-medium cursor-pointer text-lg"
+                  >
+                     This work is solely mine, and I retain all rights to it.
+                  </label>
+               </div>
+               
                {errors.oath && (
                   <span className="text-red-500 mt-1">
                      {errors.oath.message}
