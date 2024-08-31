@@ -5,7 +5,6 @@ export default withAuth(
    function middleware(req) {
       const { pathname } = req.nextUrl
       const { token } = req.nextauth
-      console.log('token', token)
 
       if (!token && pathname.startsWith('/admin/dashboard')) {
          return NextResponse.redirect(new URL('/', req.url))

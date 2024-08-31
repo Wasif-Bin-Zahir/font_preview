@@ -10,6 +10,7 @@ export type FontType = {
    designer: string
    preview: string
    download: string
+   donation: string
 }
 
 export type TextTransform = 'uppercase' | 'lowercase' | 'capitalize' | 'none'

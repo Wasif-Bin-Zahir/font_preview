@@ -16,8 +16,12 @@ export default function Status({
    //  }
 
    return (
-      <button onClick={() => toggleApproval(id, !status)}>
-         {status ? 'Hide' : 'Publish'}
-      </button>
+      <button
+      onClick={() => toggleApproval(id, !status)}
+      className={`w-24 px-3 py-1 rounded-md text-white ${status ? 'bg-red-500' : 'bg-green-500'}`}
+   >
+      {status ? 'Hide' : 'Publish'}
+   </button>
+   
    )
 }
