@@ -1,5 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import Modal from 'react-modal'
 import { FontType, TextTransform } from '.'
+import ModalContent from '@/components/Modal'
 
 type Props = {
    fonts: FontType[]
@@ -16,13 +18,27 @@ export default function View({
    textTransform,
    previewText
 }: Props) {
+   const [modal, setModal] = useState(false)
+   const [downloadLink, setDownloadLink] = useState('')
+   const [donationLink, setDonationLink] = useState<string | null>(null)
+
    const loadFont = (font: FontType) => {
       const fontFace = new FontFace(font.name, `url(${font.preview})`)
+
       fontFace.load().then(() => {
          document.fonts.add(fontFace)
       })
 
       return fontFace
+   }
+
+   const handleDownloadModal = (
+      downloadLink: string,
+      donationLink?: string
+   ) => {
+      setModal(true)
+      setDownloadLink(downloadLink)
+      donationLink && setDonationLink(donationLink)
    }
 
    useEffect(() => {
@@ -35,6 +51,17 @@ export default function View({
 
    return (
       <div className="space-y-6">
+         <Modal isOpen={modal}>
+            <ModalContent
+               donationLink={donationLink}
+               downloadLink={downloadLink}
+               onClose={() => {
+                  setModal(false)
+                  setDonationLink(null)
+               }}
+            />
+         </Modal>
+
          {fonts.map((font, index) => (
             <div
                key={index}
@@ -63,11 +90,16 @@ export default function View({
                      <p className="text-gray-700">{font.designer}</p>
                   </div>
 
-                  <a href={`${font.download}`}>
-                     <button className="px-3 py-1.5 font-bold text-gray-500 rounded-lg  border border-orange-500 shadow-md hover:bg-orange-400 hover:text-white transition duration-300 text-sm">
-                        Font Download
-                     </button>
-                  </a>
+                  {/* <a href={`${font.download}`}> */}
+                  <button
+                     onClick={() =>
+                        handleDownloadModal(font.download, font.donation)
+                     }
+                     className="px-3 py-1.5 font-bold text-gray-500 rounded-lg  border border-orange-500 shadow-md hover:bg-orange-400 hover:text-white transition duration-300 text-sm"
+                  >
+                     Font Download
+                  </button>
+                  {/* </a> */}
                </div>
             </div>
          ))}

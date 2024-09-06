@@ -33,13 +33,13 @@ export default async function AdminFontApprovalPage() {
                   <table className="min-w-full bg-white">
                      <thead>
                         <tr>
-                           <th className="py-3 px-5 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                           <th className="py-3 px-5 bg-gray-200 text-left text-lg font-bold text-gray-700">
                               Designer Name
                            </th>
-                           <th className="py-3 px-5 bg-gray-200 text-center text-sm font-semibold text-gray-700">
+                           <th className="py-3 px-5 bg-gray-200 text-center text-lg font-bold text-gray-700">
                               Font Name
                            </th>
-                           <th className="py-3 px-5 bg-gray-200 text-right text-sm font-semibold text-gray-700">
+                           <th className="py-3 px-5 bg-gray-200 text-right text-lg font-bold text-gray-700">
                               Actions
                            </th>
                         </tr>
@@ -55,19 +55,6 @@ export default async function AdminFontApprovalPage() {
                                  {font.name}
                               </td>
                               <td className="py-3 px-5 text-right">
-                                 {/* <button
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mr-2"
-                                    onClick={() => approveFont(font._id)}
-                                 >
-                                    Approve
-                                 </button>
-                                 <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                                    onClick={() => rejectFont(font._id)}
-                                 >
-                                    Reject
-                                 </button> */}
-
                                  <Status id={font._id} status={font.status} />
                               </td>
                            </tr>

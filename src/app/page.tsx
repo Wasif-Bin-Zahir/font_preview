@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 export default async function Home() {
    await connectDB()
    const fonts: FontType[] = await Font.find({ status: true })
-      .select('name designer preview download')
+      .select('name designer preview download donation')
       .lean()
 
    return (

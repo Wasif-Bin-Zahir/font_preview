@@ -139,7 +139,7 @@ export default function SubmitFontPage() {
                      This work is solely mine, and I retain all rights to it.
                   </label>
                </div>
-               
+
                {errors.oath && (
                   <span className="text-red-500 mt-1">
                      {errors.oath.message}
