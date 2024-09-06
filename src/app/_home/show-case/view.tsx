@@ -23,9 +23,11 @@ export default function View({
    const [donationLink, setDonationLink] = useState<string | null>(null)
 
    const loadFont = (font: FontType) => {
+      const url = `${process.env.NEXT_PUBLIC_FILE}${font.preview}`
+      console.log(url)
       const fontFace = new FontFace(
          font.name,
-         `url(${process.env.NEXT_PUBLIC_FILE}${font.preview})`
+         `url(${url})`
       )
 
       fontFace.load().then(() => {
