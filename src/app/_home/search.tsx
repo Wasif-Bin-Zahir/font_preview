@@ -13,7 +13,7 @@ export default function Search() {
       } else {
          replace('/')
       }
-   }, [query])
+   }, [query, replace])
 
    return (
       <input
