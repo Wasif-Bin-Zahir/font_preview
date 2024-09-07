@@ -88,12 +88,6 @@ const Navbar = () => {
                      >
                         Submit a font
                      </a>
-                     <a
-                        href="/contactUs"
-                        className="relative after:content-['|'] after:ml-5 after:text-gray-500 last:after:content-none"
-                     >
-                        Contact Us
-                     </a>
                   </div>
                   <div className="flex space-x-5 "></div>
                </div>
