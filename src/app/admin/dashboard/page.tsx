@@ -1,5 +1,6 @@
 import Font from '@/models/Font'
 import Status from './status'
+import connectDB from '@/lib/mongodb'
 
 interface FontData {
    _id: string
@@ -9,38 +10,27 @@ interface FontData {
 }
 
 export default async function AdminFontApprovalPage() {
+   await connectDB()
    const data = await Font.find()
 
-   const rejectFont = async (id: string) => {
-      // Send rejection request to the server
-      await fetch(`/api/fonts/${id}/reject`, { method: 'POST' })
-      // setPendingFonts(pendingFonts.filter((font) => font._id !== id))
-   }
-
    return (
-      <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
+      <div className="flex min-h-screen flex-col bg-gray-100 font-sans">
          <div className="container mx-auto px-5 py-10">
-            <h1 className="text-3xl font-bold text-center mb-10">
-               Admin - Approve Fonts
-            </h1>
+            <h1 className="mb-10 text-center text-3xl font-bold">Fonts</h1>
 
-            {/* Pending Fonts Section */}
-            <div className="bg-white shadow-lg rounded-lg p-6">
-               <h2 className="text-2xl font-semibold text-gray-700 mb-6">
-                  Pending Fonts
-               </h2>
+            <div className="rounded bg-white p-3">
                <div className="overflow-x-auto">
                   <table className="min-w-full bg-white">
                      <thead>
                         <tr>
-                           <th className="py-3 px-5 bg-gray-200 text-left text-lg font-bold text-gray-700">
-                              Designer Name
+                           <th className="bg-gray-200 px-5 py-3 text-left text-lg font-bold text-gray-700">
+                              Designer
                            </th>
-                           <th className="py-3 px-5 bg-gray-200 text-center text-lg font-bold text-gray-700">
-                              Font Name
+                           <th className="bg-gray-200 px-5 py-3 text-center text-lg font-bold text-gray-700">
+                              Font
                            </th>
-                           <th className="py-3 px-5 bg-gray-200 text-right text-lg font-bold text-gray-700">
-                              Actions
+                           <th className="bg-gray-200 px-5 py-3 text-right text-lg font-bold text-gray-700">
+                              Action
                            </th>
                         </tr>
                      </thead>
@@ -50,11 +40,11 @@ export default async function AdminFontApprovalPage() {
                               key={font._id}
                               className="border-b border-gray-200"
                            >
-                              <td className="py-3 px-5">{font.designer}</td>
-                              <td className="py-3 px-5 text-center mr-2">
+                              <td className="px-5 py-3">{font.designer}</td>
+                              <td className="mr-2 px-5 py-3 text-center">
                                  {font.name}
                               </td>
-                              <td className="py-3 px-5 text-right">
+                              <td className="px-5 py-3 text-right">
                                  <Status id={font._id} status={font.status} />
                               </td>
                            </tr>

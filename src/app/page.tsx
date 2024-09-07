@@ -1,30 +1,41 @@
-import FontStats from '@/components/font-stats'
 import connectDB from '@/lib/mongodb'
 import Font from '@/models/Font'
 import ShowCase, { type FontType } from './_home/show-case'
+import Search from './_home/search'
 
 export const dynamic = 'force-dynamic'
 
-export default async function Home() {
+export default async function Home({
+   searchParams
+}: {
+   searchParams: { q?: string }
+}) {
+   const query: any = { status: true }
+
+   if (searchParams.q) {
+      query.$or = [
+         { name: { $regex: searchParams.q, $options: 'i' } },
+         { font: { $regex: searchParams.q, $options: 'i' } }
+      ]
+   }
    await connectDB()
-   const fonts: FontType[] = await Font.find({ status: true })
+   const fonts: FontType[] = await Font.find(query)
       .select('name designer preview download donation')
       .lean()
 
    return (
-      <div className="mx-auto">
-         <div className="flex justify-center items-center p-3">
-            <input
-               type="text"
-               placeholder="Search Font Here"
-               className="bg-white border-2 border-gray-300"
-            />
+      <div className="mx-auto min-h-dvh">
+         <div className="bg-primary flex flex-col justify-center py-7">
+            <div className="text-center text-lg text-white">
+               Need a font for a specific purpose?
+            </div>
+
+            <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed py-3">
+               <Search />
+            </div>
          </div>
 
-         <hr />
-
          <ShowCase fonts={fonts} />
-         <FontStats />
       </div>
    )
 }

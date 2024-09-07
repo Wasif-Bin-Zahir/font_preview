@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Controller from './controller'
-import PreviewInput from './preview-input'
 import View from './view'
 
 export type FontType = {
@@ -22,19 +21,30 @@ export default function ShowCase({ fonts }: { fonts: FontType[] }) {
    const [textTransform, setTextTransform] = useState<TextTransform>('none')
 
    return (
-      <>
-         <PreviewInput
-            previewText={previewText}
-            setPreviewText={setPreviewText}
-         />
+      <div className="mx-auto my-16 max-w-screen-2xl">
+         <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
+            <input
+               type="text"
+               className="border-ash w-full border-0 border-b-2 border-dashed bg-transparent text-lg"
+               placeholder="Type here to preview font"
+               onChange={(e) => {
+                  if (e.target.value.length === 0)
+                     setPreviewText('Type here to preview font')
+                  else setPreviewText(e.target.value)
+               }}
+            />
 
-         <Controller
-            letterSpacing={letterSpacing}
-            fontSize={fontSize}
-            setTextTransform={setTextTransform}
-            setFontSize={setFontSize}
-            setLetterSpacing={setLetterSpacing}
-         />
+            <Controller
+               letterSpacing={letterSpacing}
+               fontSize={fontSize}
+               textTransform={textTransform}
+               setTextTransform={setTextTransform}
+               setFontSize={setFontSize}
+               setLetterSpacing={setLetterSpacing}
+            />
+         </div>
+
+         <hr className="h-7" />
 
          <View
             fonts={fonts}
@@ -43,6 +53,6 @@ export default function ShowCase({ fonts }: { fonts: FontType[] }) {
             textTransform={textTransform}
             previewText={previewText}
          />
-      </>
+      </div>
    )
 }
