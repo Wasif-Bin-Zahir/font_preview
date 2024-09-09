@@ -20,7 +20,7 @@ export default function Controller({
    setLetterSpacing
 }: Props) {
    return (
-      <div className="flex flex-wrap gap-3 p-3">
+      <div className="flex flex-wrap gap-3 p-3 col-span-2">
          {/* font size */}
          <div className="mx-auto mb-3 flex flex-col gap-3">
             <label className="flex items-end gap-1 text-sm font-bold">

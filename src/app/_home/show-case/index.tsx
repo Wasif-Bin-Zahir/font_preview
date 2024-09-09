@@ -22,7 +22,7 @@ export default function ShowCase({ fonts }: { fonts: FontType[] }) {
 
    return (
       <div className="mx-auto my-16 max-w-screen-2xl">
-         <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
+         <div className="grid grid-cols-1 gap-7 lg:grid-cols-3">
             <input
                type="text"
                className="border-ash w-full border-0 border-b-2 border-dashed bg-transparent text-lg"

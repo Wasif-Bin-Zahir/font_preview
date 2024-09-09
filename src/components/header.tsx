@@ -27,31 +27,15 @@ export default function Navbar() {
             </div>
          </header>
 
-         <nav className="bg-ash text-dark px-3 py-3">
-            <div className="mx-auto flex max-w-screen-2xl items-stretch justify-between font-semibold">
-               <a href="/submit-font">Submit a font</a>
-
-               <div>
-                  {path === '/admin/dashboard' ? (
-                     <button
-                        className="transition duration-300 ease-in-out hover:text-red-500"
-                        onClick={() => {
-                           setLoading(true)
-                           signOut({
-                              callbackUrl: '/'
-                           }).then(() => setLoading(false))
-                        }}
-                     >
-                        {loading ? 'Logging out...' : 'Logout'}
-                     </button>
-                  ) : session?.user?.image ? (
-                     <Link href="/admin/dashboard" className="cursor-pointer">
-                        Dashboard
-                     </Link>
-                  ) : (
-                     <button onClick={() => signIn('google')}>Login</button>
-                  )}
-               </div>
+         <nav className="bg-ash px-3 py-3 text-dark">
+            <div className="mx-auto flex max-w-screen-lg items-stretch justify-end font-semibold">
+               <a className="mr-3" href="/submit-font">
+                  Submit a font
+               </a>
+               |
+               <a className="ml-3" href="/contact-us">
+                  Contact us
+               </a>
             </div>
          </nav>
       </>

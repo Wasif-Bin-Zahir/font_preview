@@ -19,20 +19,14 @@ export default async function Home({
       ]
    }
    await connectDB()
-   const fonts: FontType[] = await Font.find(query)
-      .select('name designer preview download donation')
-      .lean()
+   const fonts: FontType[] = await Font.find(query).select(
+      'name designer preview download donation'
+   )
 
    return (
-      <div className="mx-auto min-h-dvh">
-         <div className="bg-primary flex flex-col justify-center py-7">
-            <div className="text-center text-lg text-white">
-               Need a font for a specific purpose?
-            </div>
-
-            <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed py-3">
-               <Search />
-            </div>
+      <div className="mx-auto min-h-dvh max-w-screen-lg">
+         <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed py-3">
+            <Search />
          </div>
 
          <ShowCase fonts={fonts} />
