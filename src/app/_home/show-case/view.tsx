@@ -13,6 +13,17 @@ type Props = {
    previewText: string
 }
 
+export const loadFont = (font: FontType) => {
+   const url = `${process.env.NEXT_PUBLIC_FILE}${font.preview}`
+   const fontFace = new FontFace(font.name, `url(${url})`)
+
+   fontFace.load().then(() => {
+      document.fonts.add(fontFace)
+   })
+
+   return fontFace
+}
+
 export default function View({
    fonts,
    fontSize,
@@ -23,17 +34,6 @@ export default function View({
    const [modal, setModal] = useState(false)
    const [downloadLink, setDownloadLink] = useState('')
    const [donationLink, setDonationLink] = useState<string | null>(null)
-
-   const loadFont = (font: FontType) => {
-      const url = `${process.env.NEXT_PUBLIC_FILE}${font.preview}`
-      const fontFace = new FontFace(font.name, `url(${url})`)
-
-      fontFace.load().then(() => {
-         document.fonts.add(fontFace)
-      })
-
-      return fontFace
-   }
 
    const handleDownloadModal = (
       downloadLink: string,
@@ -63,7 +63,7 @@ export default function View({
                height={50}
             />
 
-            <p className="text-dark my-7 text-center text-xl">
+            <p className="my-7 text-center text-xl text-dark">
                No Result Found
             </p>
          </div>
@@ -86,11 +86,17 @@ export default function View({
          {fonts.map((font, index) => (
             <div
                key={index}
-               className="flex flex-col items-center space-x-6 rounded-xl bg-gray-50 px-7 py-3 lg:flex-row"
+               className="grid grid-cols-4 space-x-6 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
             >
-               <div className="max-w-7xl grow">
+               <div className="col-span-4 max-w-7xl lg:col-span-3">
+                  <p className="text-sm text-gray-300">
+                     <span className="font-semibold">{font.name} </span>
+                     by
+                     <span className=""> {font.designer}</span>
+                  </p>
+
                   <p
-                     className={`text-gray-800 font-[${font.name}]`}
+                     className={`text-gray-800`}
                      style={{
                         fontFamily: font.name,
                         fontSize: `${fontSize}px`,
@@ -103,23 +109,18 @@ export default function View({
                   </p>
                </div>
 
-               <div className="flex items-center justify-between gap-7">
-                  <div className="text-right">
-                     <h3 className="text-lg font-semibold">{font.name}</h3>
+               <div className="col-span-4 flex items-center justify-end gap-7 lg:col-span-1">
+                  <div className="text-right"></div>
 
-                     <p className="italic text-gray-700"> by {font.designer}</p>
-                  </div>
-
-                  {/* <a href={`${font.download}`}> */}
                   <button
+                     title="Download"
                      onClick={() =>
                         handleDownloadModal(font.download, font.donation)
                      }
-                     className="bg-primary hover:bg-secondary rounded-full border-2 p-3 text-sm font-bold text-white transition duration-300 hover:text-white"
+                     className="rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
                   >
                      <Download />
                   </button>
-                  {/* </a> */}
                </div>
             </div>
          ))}

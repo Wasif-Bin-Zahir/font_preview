@@ -10,6 +10,8 @@ export type FontType = {
    preview: string
    download: string
    donation: string
+   _id: string
+   status: boolean
 }
 
 export type TextTransform = 'uppercase' | 'lowercase' | 'capitalize' | 'none'
@@ -25,7 +27,7 @@ export default function ShowCase({ fonts }: { fonts: FontType[] }) {
          <div className="grid grid-cols-1 gap-7 lg:grid-cols-3">
             <input
                type="text"
-               className="border-ash w-full border-0 border-b-2 border-dashed bg-transparent text-lg"
+               className="w-full border-0 border-b-2 border-dashed border-ash bg-transparent text-lg"
                placeholder="Type here to preview font"
                onChange={(e) => {
                   if (e.target.value.length === 0)
