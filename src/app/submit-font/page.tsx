@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { fontSubmissionSchema, type FontSubmissionForm } from './validation'
+import { Loader2 } from 'lucide-react'
 
 export default function SubmitFontPage() {
    const {
@@ -165,7 +166,14 @@ export default function SubmitFontPage() {
                disabled={isSubmitting}
                className="cursor-pointer rounded border-none bg-[#e4675f] px-5 py-2 text-white"
             >
-               {isSubmitting ? 'Submitting...' : 'Submit'}
+               {isSubmitting ? (
+                  <>
+                     Submitting...
+                     <Loader2 className="ml-2 animate-spin inline" size={20} />
+                  </>
+               ) : (
+                  'Submit'
+               )}
             </button>
          </form>
       </div>

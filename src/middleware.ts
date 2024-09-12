@@ -8,6 +8,8 @@ export default withAuth(
 
       if (!token && pathname.startsWith('/admin/dashboard')) {
          return NextResponse.redirect(new URL('/', req.url))
+      } else if (token && pathname.startsWith('/admin/login')) {
+         return NextResponse.redirect(new URL('/admin/dashboard', req.url))
       }
    },
    {

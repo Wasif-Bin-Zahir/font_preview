@@ -20,7 +20,7 @@ export default function Controller({
    setLetterSpacing
 }: Props) {
    return (
-      <div className="flex flex-wrap gap-3 p-3 col-span-2">
+      <div className="col-span-2 flex flex-wrap gap-3 p-3">
          {/* font size */}
          <div className="mx-auto mb-3 flex flex-col gap-3">
             <label className="flex items-end gap-1 text-sm font-bold">
@@ -60,20 +60,20 @@ export default function Controller({
          <div className="mx-auto flex justify-center gap-3">
             <button
                onClick={() => setTextTransform('uppercase')}
-               className={`hover:border-primary border-b-4 px-3 text-lg font-semibold transition duration-300 ${textTransform === 'uppercase' ? 'border-primary text-dark' : 'text-ash border-transparent'}`}
+               className={`border-b-4 px-3 text-lg font-semibold transition duration-300 hover:border-dark ${textTransform === 'uppercase' ? 'border-dark text-dark' : 'border-transparent text-dark'}`}
             >
                AA
             </button>
 
             <button
                onClick={() => setTextTransform('capitalize')}
-               className={`hover:border-primary border-b-4 px-3 text-lg font-semibold transition duration-300 ${textTransform === 'capitalize' ? 'border-primary text-dark' : 'text-ash border-transparent'}`}
+               className={`border-b-4 px-3 text-lg font-semibold transition duration-300 hover:border-dark ${textTransform === 'capitalize' ? 'border-dark text-dark' : 'border-transparent text-dark'}`}
             >
                Aa
             </button>
             <button
                onClick={() => setTextTransform('lowercase')}
-               className={`hover:border-primary border-b-4 px-3 text-lg font-semibold transition duration-300 ${textTransform === 'lowercase' ? 'border-primary text-dark' : 'text-ash border-transparent'}`}
+               className={`border-b-4 px-3 text-lg font-semibold transition duration-300 hover:border-dark ${textTransform === 'lowercase' ? 'border-dark text-dark' : 'border-transparent text-dark'}`}
             >
                aa
             </button>

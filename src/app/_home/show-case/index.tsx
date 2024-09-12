@@ -20,7 +20,7 @@ export default function ShowCase({ fonts }: { fonts: FontData }) {
          <div className="grid grid-cols-1 gap-7 lg:grid-cols-3">
             <input
                type="text"
-               className="w-full border-0 border-b-2 border-dashed border-ash bg-transparent text-lg"
+               className="w-full border-0 border-b-2 border-dashed border-dark bg-transparent text-lg"
                placeholder="Type here to preview font"
                onChange={(e) => {
                   if (e.target.value.length === 0) setPreviewText(defaultText)

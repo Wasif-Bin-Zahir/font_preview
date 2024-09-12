@@ -1,6 +1,5 @@
 'use client'
 
-import { loadFont } from '@/app/_home/show-case/view'
 import { FontData } from '@/types'
 import Image from 'next/image'
 import { useEffect } from 'react'
@@ -8,6 +7,8 @@ import Status from './status'
 import Delete from './delete'
 import ReactPaginate from 'react-paginate'
 import { useRouter, useSearchParams } from 'next/navigation'
+import slugify from 'slugify'
+import { getValidFontName, loadFont } from '@/utils'
 
 export default function Table({ fonts }: { fonts: FontData }) {
    const searchParams = useSearchParams()
@@ -46,10 +47,10 @@ export default function Table({ fonts }: { fonts: FontData }) {
          {fonts.docs.map((font, index) => (
             <div
                key={index}
-               className="grid grid-cols-4 space-x-6 gap-3 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
+               className="grid grid-cols-4 gap-3 space-x-6 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
             >
                <div className="col-span-4 max-w-7xl lg:col-span-3">
-                  <p className="text-sm text-gray-300 my-1">
+                  <p className="my-1 text-sm text-gray-300">
                      <span className="font-semibold">{font.name} </span>
                      by
                      <span className=""> {font.designer}</span>
@@ -58,7 +59,7 @@ export default function Table({ fonts }: { fonts: FontData }) {
                   <p
                      className="text-5xl text-gray-700"
                      style={{
-                        fontFamily: font.name
+                        fontFamily: getValidFontName(font._id)
                      }}
                   >
                      The quick brown fox jumps over the lazy dog

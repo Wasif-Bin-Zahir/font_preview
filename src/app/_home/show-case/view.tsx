@@ -1,5 +1,6 @@
 import ModalContent from '@/components/Modal'
-import { Font, FontData } from '@/types'
+import { FontData } from '@/types'
+import { getValidFontName, loadFont } from '@/utils'
 import { Download } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -14,17 +15,6 @@ export type Props = {
    letterSpacing: number
    textTransform: TextTransform
    previewText: string
-}
-
-export const loadFont = (font: Font) => {
-   const url = `${process.env.NEXT_PUBLIC_FILE}${font.preview}`
-   const fontFace = new FontFace(font.name, `url(${encodeURI(url)})`)
-
-   fontFace.load().then(() => {
-      document.fonts.add(fontFace)
-   })
-
-   return fontFace
 }
 
 export default function View({
@@ -106,7 +96,7 @@ export default function View({
                   <p
                      className={`text-gray-800`}
                      style={{
-                        fontFamily: font.name,
+                        fontFamily: getValidFontName(font._id),
                         fontSize: `${fontSize}px`,
                         letterSpacing: `${letterSpacing}px`,
                         textTransform:

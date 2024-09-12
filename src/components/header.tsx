@@ -21,7 +21,7 @@ export default function Navbar() {
             </div>
          </header>
 
-         <nav className="bg-ash px-3 py-3 text-dark">
+         <nav className="bg-gray-200 shadow px-3 py-3 text-dark">
             <div className="mx-auto flex max-w-screen-lg items-stretch justify-end font-semibold">
                <a className="mr-3" href="/submit-font">
                   Submit a font
