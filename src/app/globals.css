@@ -13,3 +13,7 @@ label {
 html {
    scroll-behavior: smooth;
 }
+
+a:hover {
+   @apply underline;
+}

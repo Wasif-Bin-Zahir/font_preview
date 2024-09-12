@@ -19,7 +19,7 @@ export default async function AdminFontApprovalPage({
 
    return (
       <div className="flex min-h-screen flex-col bg-gray-100 font-sans">
-         <div className="container mx-auto px-5 py-10">
+         <div className="container mx-auto px-5 py-10 max-w-screen-lg">
             <h1 className="mb-10 text-center text-3xl font-bold">Fonts</h1>
 
             <Table fonts={fonts} />

@@ -86,7 +86,7 @@ export default function View({
                key={index}
                className="grid grid-cols-4 space-x-6 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
             >
-               <div className="col-span-4 max-w-7xl lg:col-span-3">
+               <div className="col-span-4 max-w-7xl overflow-hidden lg:col-span-3">
                   <p className="text-sm text-gray-300">
                      <span className="font-semibold">{font.name} </span>
                      by
@@ -94,7 +94,7 @@ export default function View({
                   </p>
 
                   <p
-                     className={`text-gray-800`}
+                     className={`text-wrap text-gray-800`}
                      style={{
                         fontFamily: getValidFontName(font._id),
                         fontSize: `${fontSize}px`,
@@ -127,8 +127,8 @@ export default function View({
             containerClassName="flex justify-center items-center gap-3"
             pageLinkClassName="hover:cursor-pointer rounded-full border-2 bg-dark flex justify-center items-center w-12 h-12 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
             breakClassName="  p-2 text-sm font-bold"
-            previousLinkClassName="disabled:bg-gray-100 flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
-            nextLinkClassName=" flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            previousLinkClassName={`${fonts.prevPage === null ? 'opacity-10' : ''}  disabled:bg-gray-100 flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70`}
+            nextLinkClassName={`${fonts.prevPage === null ? 'opacity-10' : ''} flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70`}
             activeLinkClassName="bg-white border-dark !text-dark"
             marginPagesDisplayed={1}
             onPageChange={(e) => {
@@ -145,8 +145,6 @@ export default function View({
             previousLabel="<<"
             nextLabel=">>"
             pageCount={fonts.totalPages}
-            prevRel={fonts.prevPage}
-            nextRel={fonts.nextPage}
          />
       </div>
    )

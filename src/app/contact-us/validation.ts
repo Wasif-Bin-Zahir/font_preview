@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const fontSubmissionSchema = z.object({
+export const contactSubmissionSchema = z.object({
    name: z.string().min(1, { message: 'Font name is required' }),
    designer: z.string().min(1, { message: 'Designer name is required' }),
    web: z
@@ -30,6 +30,4 @@ export const fontSubmissionSchema = z.object({
    )
 })
 
-export type FontSubmissionSchema = z.infer<typeof fontSubmissionSchema>
-
-
+export type ContactSchema = z.infer<typeof contactSubmissionSchema>

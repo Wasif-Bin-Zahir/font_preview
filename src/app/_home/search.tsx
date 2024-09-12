@@ -5,15 +5,26 @@ import { useEffect, useState } from 'react'
 
 export default function Search() {
    const [query, setQuery] = useState('')
+   const [debouncedQuery, setDebouncedQuery] = useState('')
    const { replace } = useRouter()
 
    useEffect(() => {
-      if (query) {
-         replace('/?q=' + query)
+      const handler = setTimeout(() => {
+         setDebouncedQuery(query)
+      }, 700)
+
+      return () => {
+         clearTimeout(handler)
+      }
+   }, [query])
+
+   useEffect(() => {
+      if (debouncedQuery) {
+         replace('/?q=' + debouncedQuery)
       } else {
          replace('/')
       }
-   }, [query, replace])
+   }, [debouncedQuery, replace])
 
    return (
       <input

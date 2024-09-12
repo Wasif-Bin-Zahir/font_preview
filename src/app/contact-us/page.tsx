@@ -1,6 +1,44 @@
 'use client'
 
+import toast from 'react-hot-toast'
+
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ContactSchema, contactSubmissionSchema } from './validation'
+
 export default function ContactUsPage() {
+   const {
+      register,
+      handleSubmit,
+      reset,
+      formState: { errors, isSubmitting }
+   } = useForm<ContactSchema>({
+      resolver: zodResolver(contactSubmissionSchema)
+   })
+
+   const onSubmit = async (body: ContactSchema) => {
+      try {
+         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/upload`, {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+         })
+         const result = await res.json()
+
+         if (result.success) {
+            reset()
+            toast.success('')
+         } else {
+            toast.error('Something went wrong')
+         }
+      } catch (error) {
+         console.error('Error while contacting:', error)
+         toast.error('Something went wrong')
+      }
+   }
+
    return (
       <div className="mx-auto max-w-sm rounded-xl bg-gray-50 px-3 py-7">
          <h1 className="text-center text-3xl font-bold">Contact Us</h1>

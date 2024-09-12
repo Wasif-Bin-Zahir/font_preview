@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { fontSubmissionSchema, type FontSubmissionForm } from './validation'
+import { fontSubmissionSchema, type FontSubmissionSchema } from './validation'
 import { Loader2 } from 'lucide-react'
 
 export default function SubmitFontPage() {
@@ -12,11 +12,11 @@ export default function SubmitFontPage() {
       handleSubmit,
       reset,
       formState: { errors, isSubmitting }
-   } = useForm<FontSubmissionForm>({
+   } = useForm<FontSubmissionSchema>({
       resolver: zodResolver(fontSubmissionSchema)
    })
 
-   const onSubmit = async (data: FontSubmissionForm) => {
+   const onSubmit = async (data: FontSubmissionSchema) => {
       const formData = new FormData()
       console.log(data)
 
@@ -169,7 +169,7 @@ export default function SubmitFontPage() {
                {isSubmitting ? (
                   <>
                      Submitting...
-                     <Loader2 className="ml-2 animate-spin inline" size={20} />
+                     <Loader2 className="ml-2 inline animate-spin" size={20} />
                   </>
                ) : (
                   'Submit'
