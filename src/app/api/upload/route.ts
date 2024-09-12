@@ -1,7 +1,7 @@
 import connectDB from '@/lib/mongodb'
 import Font from '@/models/Font'
 import { NextRequest, NextResponse } from 'next/server'
-import extractFormData from './extract-form-data'
+import extractFormData from '@/utils/extract-form-data'
 import fileUpload from './file-upload'
 
 export async function POST(req: NextRequest) {

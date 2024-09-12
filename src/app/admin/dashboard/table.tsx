@@ -1,21 +1,22 @@
 'use client'
 
-import Image from 'next/image'
-import React, { useEffect } from 'react'
-import Status from './status'
 import { loadFont } from '@/app/_home/show-case/view'
-import { FontType } from '@/app/_home/show-case'
+import { FontData } from '@/types'
+import Image from 'next/image'
+import { useEffect } from 'react'
+import Status from './status'
+import Delete from './delete'
 
-export default function Table({ fonts }: { fonts: FontType[] }) {
+export default function Table({ fonts }: { fonts: FontData }) {
    useEffect(() => {
-      const fontFaces = fonts.map((font) => loadFont(font))
+      const fontFaces = fonts.docs.map((font) => loadFont(font))
 
       return () => {
          fontFaces.forEach((fontFace) => document.fonts.delete(fontFace))
       }
    }, [fonts])
 
-   if (fonts.length === 0) {
+   if (fonts.docs.length === 0) {
       return (
          <div className="item-center my-7 flex flex-col items-center justify-center">
             <Image
@@ -35,7 +36,7 @@ export default function Table({ fonts }: { fonts: FontType[] }) {
 
    return (
       <div className="space-y-6">
-         {fonts.map((font, index) => (
+         {fonts.docs.map((font, index) => (
             <div
                key={index}
                className="grid grid-cols-4 space-x-6 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
@@ -48,7 +49,7 @@ export default function Table({ fonts }: { fonts: FontType[] }) {
                   </p>
 
                   <p
-                     className={`text-gray-800`}
+                     className="text-3xl text-gray-800"
                      style={{
                         fontFamily: font.name
                      }}
@@ -61,6 +62,7 @@ export default function Table({ fonts }: { fonts: FontType[] }) {
                   <div className="text-right"></div>
 
                   <Status id={font._id} status={font.status} />
+                  <Delete id={font._id} name={font.name} designer={font.designer} />
                </div>
             </div>
          ))}

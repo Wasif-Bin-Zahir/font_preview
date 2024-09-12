@@ -1,14 +1,14 @@
 import connectDB from '@/lib/mongodb'
 import Font from '@/models/Font'
-import ShowCase, { type FontType } from './_home/show-case'
 import Search from './_home/search'
+import ShowCase from './_home/show-case'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home({
    searchParams
 }: {
-   searchParams: { q?: string }
+   searchParams: { q?: string; page?: string }
 }) {
    const query: any = { status: true }
 
@@ -19,13 +19,19 @@ export default async function Home({
       ]
    }
    await connectDB()
-   const fonts: FontType[] = await Font.find(query).select(
-      'name designer preview download donation'
-   )
+
+   const options = {
+      page: parseInt(searchParams.page as string) || 1,
+      limit: 2,
+      select: 'name designer preview download donation -_id'
+   }
+
+   // @ts-ignore
+   const fonts = await Font.paginate(query, options)
 
    return (
       <div className="mx-auto min-h-dvh max-w-screen-lg">
-         <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed py-3">
+         <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed border-white py-3">
             <Search />
          </div>
 

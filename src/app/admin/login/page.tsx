@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 
 export default function Login() {
    const { push } = useRouter()
-   
+
    const { register, handleSubmit } = useForm({
       defaultValues: {
          email: '',
@@ -21,7 +21,6 @@ export default function Login() {
          password: data.password,
          redirect: false
       }).then((res) => {
-         console.log(res)
          if (res && res.error) {
             toast.error(res.error)
          } else {

@@ -1,6 +1,19 @@
-import { Schema, model, models } from 'mongoose'
+import { Schema, model, models, PaginateModel } from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
-const FontSchema = new Schema(
+interface Doc extends Document {
+   name: string
+   preview: string
+   designer: string
+   web: string
+   donation: string
+   files: string[]
+   download: string
+   status: boolean
+   approvedAt: Date
+}
+
+const FontSchema = new Schema<Doc>(
    {
       name: {
          type: String,
@@ -45,4 +58,5 @@ const FontSchema = new Schema(
    }
 )
 
-export default models.Font || model('Font', FontSchema)
+FontSchema.plugin(mongoosePaginate)
+export default models.Font || model<Doc, PaginateModel<Doc>>('Font', FontSchema)

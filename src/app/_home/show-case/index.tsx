@@ -3,35 +3,27 @@
 import { useState } from 'react'
 import Controller from './controller'
 import View from './view'
-
-export type FontType = {
-   name: string
-   designer: string
-   preview: string
-   download: string
-   donation: string
-   _id: string
-   status: boolean
-}
+import { FontData } from '@/types'
 
 export type TextTransform = 'uppercase' | 'lowercase' | 'capitalize' | 'none'
+const defaultText = 'The quick brown fox jumps over the lazy dog'
 
-export default function ShowCase({ fonts }: { fonts: FontType[] }) {
-   const [previewText, setPreviewText] = useState('Type here to preview font')
-   const [fontSize, setFontSize] = useState(24)
+export default function ShowCase({ fonts }: { fonts: FontData }) {
+   const [previewText, setPreviewText] = useState(defaultText)
+   const [fontSize, setFontSize] = useState(40)
    const [letterSpacing, setLetterSpacing] = useState(0)
-   const [textTransform, setTextTransform] = useState<TextTransform>('none')
+   const [textTransform, setTextTransform] =
+      useState<TextTransform>('capitalize')
 
    return (
-      <div className="mx-auto my-16 max-w-screen-2xl">
+      <div className="mx-auto my-7 max-w-screen-2xl">
          <div className="grid grid-cols-1 gap-7 lg:grid-cols-3">
             <input
                type="text"
                className="w-full border-0 border-b-2 border-dashed border-ash bg-transparent text-lg"
                placeholder="Type here to preview font"
                onChange={(e) => {
-                  if (e.target.value.length === 0)
-                     setPreviewText('Type here to preview font')
+                  if (e.target.value.length === 0) setPreviewText(defaultText)
                   else setPreviewText(e.target.value)
                }}
             />

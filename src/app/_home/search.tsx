@@ -20,7 +20,7 @@ export default function Search() {
          onChange={(e) => setQuery(e.target.value)}
          type="text"
          placeholder="Search Font Here"
-         className="w-full rounded-xl border bg-gray-100 py-3 text-center italic"
+         className="w-full rounded-xl border bg-white py-3 text-center italic"
       />
    )
 }

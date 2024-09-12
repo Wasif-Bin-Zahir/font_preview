@@ -1,29 +1,23 @@
 'use client'
 
-import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 
 export default function Navbar() {
-   const { data: session } = useSession()
-   const path = usePathname()
-   const [loading, setLoading] = useState(false)
-
    return (
-      <>
+      <div className="sticky left-0 right-0 top-0 z-50">
          <header className="bg-dark py-3">
-            <div className="relative mx-auto aspect-square w-16">
-               <a href="/">
-                  <Image
-                     src="/images/logo.png"
-                     alt="Logo"
-                     quality={100}
-                     priority
-                     fill
-                  />
-               </a>
+            <div className="mx-auto w-full max-w-screen-lg">
+               <div className="relative ml-3 aspect-square w-16">
+                  <a href="/">
+                     <Image
+                        src="/images/logo.png"
+                        alt="Logo"
+                        quality={100}
+                        priority
+                        fill
+                     />
+                  </a>
+               </div>
             </div>
          </header>
 
@@ -38,6 +32,6 @@ export default function Navbar() {
                </a>
             </div>
          </nav>
-      </>
+      </div>
    )
 }

@@ -1,19 +1,22 @@
+import ModalContent from '@/components/Modal'
+import { Font, FontData } from '@/types'
+import { Download } from 'lucide-react'
+import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
-import { FontType, TextTransform } from '.'
-import ModalContent from '@/components/Modal'
-import Image from 'next/image'
-import { Download } from 'lucide-react'
+import ReactPaginate from 'react-paginate'
+import { TextTransform } from '.'
 
-type Props = {
-   fonts: FontType[]
+export type Props = {
+   fonts: FontData
    fontSize: number
    letterSpacing: number
    textTransform: TextTransform
    previewText: string
 }
 
-export const loadFont = (font: FontType) => {
+export const loadFont = (font: Font) => {
    const url = `${process.env.NEXT_PUBLIC_FILE}${font.preview}`
    const fontFace = new FontFace(font.name, `url(${url})`)
 
@@ -35,6 +38,12 @@ export default function View({
    const [downloadLink, setDownloadLink] = useState('')
    const [donationLink, setDonationLink] = useState<string | null>(null)
 
+   const searchParams = useSearchParams()
+   const search = searchParams.get('q')
+
+
+   const { push } = useRouter()
+
    const handleDownloadModal = (
       downloadLink: string,
       donationLink?: string
@@ -45,14 +54,14 @@ export default function View({
    }
 
    useEffect(() => {
-      const fontFaces = fonts.map((font) => loadFont(font))
+      const fontFaces = fonts.docs.map((font) => loadFont(font))
 
       return () => {
          fontFaces.forEach((fontFace) => document.fonts.delete(fontFace))
       }
    }, [fonts])
 
-   if (fonts.length === 0) {
+   if (fonts.docs.length === 0) {
       return (
          <div className="item-center my-7 flex flex-col items-center justify-center">
             <Image
@@ -83,7 +92,7 @@ export default function View({
             />
          </Modal>
 
-         {fonts.map((font, index) => (
+         {fonts.docs.map((font, index) => (
             <div
                key={index}
                className="grid grid-cols-4 space-x-6 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
@@ -124,6 +133,32 @@ export default function View({
                </div>
             </div>
          ))}
+
+         <ReactPaginate
+            containerClassName="flex justify-center items-center gap-3"
+            pageLinkClassName="hover:cursor-pointer rounded-full border-2 bg-dark flex justify-center items-center w-12 h-12 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            breakClassName="  p-2 text-sm font-bold"
+            previousLinkClassName="disabled:bg-gray-100 flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            nextLinkClassName=" flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            activeLinkClassName="bg-white border-dark !text-dark"
+            marginPagesDisplayed={1}
+            onPageChange={(e) => {
+               const params = {
+                  q: search || '',
+                  page: String(e.selected + 1)
+               }
+
+               const queryString = new URLSearchParams(params).toString()
+
+               push(`?${queryString}`)
+            }}
+            pageRangeDisplayed={2}
+            previousLabel="<<"
+            nextLabel=">>"
+            pageCount={fonts.totalPages}
+            prevRel={fonts.prevPage}
+            nextRel={fonts.nextPage}
+         />
       </div>
    )
 }

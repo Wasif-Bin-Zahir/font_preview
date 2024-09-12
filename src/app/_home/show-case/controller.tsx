@@ -32,7 +32,7 @@ export default function Controller({
             <input
                type="range"
                min="12"
-               max="48"
+               max="128"
                value={fontSize}
                onChange={(e) => setFontSize(Number(e.target.value))}
                className="h-0 w-48 cursor-pointer appearance-none rounded-lg bg-gray-300 p-0"
@@ -49,7 +49,7 @@ export default function Controller({
             <input
                type="range"
                min="0"
-               max="100"
+               max="70"
                value={letterSpacing}
                onChange={(e) => setLetterSpacing(Number(e.target.value))}
                className="h-0 w-48 cursor-pointer appearance-none rounded-lg bg-gray-300 p-0 leading-none"
@@ -64,6 +64,7 @@ export default function Controller({
             >
                AA
             </button>
+
             <button
                onClick={() => setTextTransform('capitalize')}
                className={`hover:border-primary border-b-4 px-3 text-lg font-semibold transition duration-300 ${textTransform === 'capitalize' ? 'border-primary text-dark' : 'text-ash border-transparent'}`}

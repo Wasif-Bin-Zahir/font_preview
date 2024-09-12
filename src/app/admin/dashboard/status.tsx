@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import toggleApproval from './action'
+import { toggleApproval } from './action'
 import { Loader } from 'lucide-react'
 
 export default function Status({
