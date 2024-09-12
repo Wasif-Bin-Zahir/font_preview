@@ -6,8 +6,15 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 import Status from './status'
 import Delete from './delete'
+import ReactPaginate from 'react-paginate'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function Table({ fonts }: { fonts: FontData }) {
+   const searchParams = useSearchParams()
+   const search = searchParams.get('q')
+
+   const { push } = useRouter()
+
    useEffect(() => {
       const fontFaces = fonts.docs.map((font) => loadFont(font))
 
@@ -39,17 +46,17 @@ export default function Table({ fonts }: { fonts: FontData }) {
          {fonts.docs.map((font, index) => (
             <div
                key={index}
-               className="grid grid-cols-4 space-x-6 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
+               className="grid grid-cols-4 space-x-6 gap-3 rounded-xl border bg-gray-50 px-7 py-3 drop-shadow-sm"
             >
                <div className="col-span-4 max-w-7xl lg:col-span-3">
-                  <p className="text-sm text-gray-300">
+                  <p className="text-sm text-gray-300 my-1">
                      <span className="font-semibold">{font.name} </span>
                      by
                      <span className=""> {font.designer}</span>
                   </p>
 
                   <p
-                     className="text-3xl text-gray-800"
+                     className="text-5xl text-gray-700"
                      style={{
                         fontFamily: font.name
                      }}
@@ -62,10 +69,40 @@ export default function Table({ fonts }: { fonts: FontData }) {
                   <div className="text-right"></div>
 
                   <Status id={font._id} status={font.status} />
-                  <Delete id={font._id} name={font.name} designer={font.designer} />
+                  <Delete
+                     id={font._id}
+                     name={font.name}
+                     designer={font.designer}
+                  />
                </div>
             </div>
          ))}
+
+         <ReactPaginate
+            containerClassName="flex justify-center items-center gap-3"
+            pageLinkClassName="hover:cursor-pointer rounded-full border-2 bg-dark flex justify-center items-center w-12 h-12 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            breakClassName="  p-2 text-sm font-bold"
+            previousLinkClassName="disabled:bg-gray-100 flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            nextLinkClassName=" flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
+            activeLinkClassName="bg-white border-dark !text-dark"
+            marginPagesDisplayed={1}
+            onPageChange={(e) => {
+               const params = {
+                  q: search || '',
+                  page: String(e.selected + 1)
+               }
+
+               const queryString = new URLSearchParams(params).toString()
+
+               push(`?${queryString}`)
+            }}
+            pageRangeDisplayed={2}
+            previousLabel="<<"
+            nextLabel=">>"
+            pageCount={fonts.totalPages}
+            prevRel={fonts.prevPage}
+            nextRel={fonts.nextPage}
+         />
       </div>
    )
 }

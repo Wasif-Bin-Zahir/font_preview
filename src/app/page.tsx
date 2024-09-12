@@ -22,7 +22,7 @@ export default async function Home({
 
    const options = {
       page: parseInt(searchParams.page as string) || 1,
-      limit: 2,
+      limit: 25,
       select: 'name designer preview download donation -_id'
    }
 

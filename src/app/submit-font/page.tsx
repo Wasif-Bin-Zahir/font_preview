@@ -2,13 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { fontSubmissionSchema, type FontSubmissionForm } from './validation'
 import toast from 'react-hot-toast'
-import { useState } from 'react'
+import { fontSubmissionSchema, type FontSubmissionForm } from './validation'
 
 export default function SubmitFontPage() {
-   const [agree, setAgree] = useState(false)
-
    const {
       register,
       handleSubmit,
@@ -20,6 +17,7 @@ export default function SubmitFontPage() {
 
    const onSubmit = async (data: FontSubmissionForm) => {
       const formData = new FormData()
+      console.log(data)
 
       Object.entries(data).forEach(([key, value]) => {
          if (value instanceof FileList) {
@@ -51,8 +49,8 @@ export default function SubmitFontPage() {
    }
 
    return (
-      <div className="mx-auto max-w-lg my-7">
-         <h1 className="text-3xl my-7 font-bold  text-center">Submit Font</h1>
+      <div className="mx-auto my-7 max-w-lg">
+         <h1 className="my-7 text-center text-3xl font-bold">Submit Font</h1>
 
          <form
             onSubmit={handleSubmit(onSubmit)}
@@ -61,7 +59,7 @@ export default function SubmitFontPage() {
             <div>
                <label>
                   Font Name
-                  <span className="text-red-500 mx-1">*</span>
+                  <span className="mx-1 text-red-500">*</span>
                </label>
 
                <input
@@ -70,7 +68,7 @@ export default function SubmitFontPage() {
                   {...register('name')}
                />
                {errors.name && (
-                  <span className="text-red-500 mt-1">
+                  <span className="mt-1 text-red-500">
                      {errors.name.message}
                   </span>
                )}
@@ -86,7 +84,7 @@ export default function SubmitFontPage() {
                   {...register('designer')}
                />
                {errors.designer && (
-                  <span className="text-red-500 mt-1">
+                  <span className="mt-1 text-red-500">
                      {errors.designer.message}
                   </span>
                )}
@@ -99,6 +97,11 @@ export default function SubmitFontPage() {
                   disabled={isSubmitting}
                   {...register('web')}
                />
+               {errors.web && (
+                  <span className="mt-1 text-red-500">
+                     {errors.web.message}
+                  </span>
+               )}
             </div>
 
             <div>
@@ -108,6 +111,11 @@ export default function SubmitFontPage() {
                   disabled={isSubmitting}
                   {...register('donation')}
                />
+               {errors.donation && (
+                  <span className="mt-1 text-red-500">
+                     {errors.donation.message}
+                  </span>
+               )}
             </div>
 
             <div>
@@ -120,12 +128,17 @@ export default function SubmitFontPage() {
                   {...register('files')}
                   multiple
                />
+               {errors.files && (
+                  <span className="mt-1 text-red-500">
+                     {errors.files.message}
+                  </span>
+               )}
             </div>
 
             <div>
-               <div className="flex items-center my-3">
+               <div className="my-3 flex items-center">
                   <input
-                     className="mr-3 w-7 h-7 cursor-pointer"
+                     className="mr-3 h-7 w-7 cursor-pointer"
                      type="checkbox"
                      id="oath"
                      disabled={isSubmitting}
@@ -134,14 +147,14 @@ export default function SubmitFontPage() {
 
                   <label
                      htmlFor="oath"
-                     className="font-medium cursor-pointer text-lg"
+                     className="cursor-pointer text-lg font-medium"
                   >
                      This work is solely mine, and I retain all rights to it.
                   </label>
                </div>
 
                {errors.oath && (
-                  <span className="text-red-500 mt-1">
+                  <span className="mt-1 text-red-500">
                      {errors.oath.message}
                   </span>
                )}
@@ -150,7 +163,7 @@ export default function SubmitFontPage() {
             <button
                type="submit"
                disabled={isSubmitting}
-               className="px-5 py-2 bg-[#e4675f] text-white border-none cursor-pointer rounded"
+               className="cursor-pointer rounded border-none bg-[#e4675f] px-5 py-2 text-white"
             >
                {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
