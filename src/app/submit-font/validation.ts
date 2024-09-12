@@ -3,8 +3,24 @@ import { z } from 'zod'
 export const fontSubmissionSchema = z.object({
    name: z.string().min(1, { message: 'Font name is required' }),
    designer: z.string().min(1, { message: 'Designer name is required' }),
-   web: z.string().url('Invalid URL').optional(),
-   donation: z.string().url('Invalid URL').optional(),
+   web: z
+      .string()
+      .refine(
+         (value) => value === '' || z.string().url().safeParse(value).success,
+         {
+            message: 'Invalid URL'
+         }
+      )
+      .optional(),
+   donation: z
+      .string()
+      .refine(
+         (value) => value === '' || z.string().url().safeParse(value).success,
+         {
+            message: 'Invalid URL'
+         }
+      )
+      .optional(),
    oath: z.boolean().refine((value) => value === true, {
       message: 'Please confirm this statement'
    }),

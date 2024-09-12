@@ -18,7 +18,7 @@ export type Props = {
 
 export const loadFont = (font: Font) => {
    const url = `${process.env.NEXT_PUBLIC_FILE}${font.preview}`
-   const fontFace = new FontFace(font.name, `url(${url})`)
+   const fontFace = new FontFace(font.name, `url(${encodeURI(url)})`)
 
    fontFace.load().then(() => {
       document.fonts.add(fontFace)
@@ -40,7 +40,6 @@ export default function View({
 
    const searchParams = useSearchParams()
    const search = searchParams.get('q')
-
 
    const { push } = useRouter()
 
