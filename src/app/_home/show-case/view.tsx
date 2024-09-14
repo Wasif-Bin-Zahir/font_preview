@@ -103,7 +103,7 @@ export default function View({
                            textTransform === 'none' ? 'none' : textTransform
                      }}
                   >
-                     {previewText}
+                     {previewText === '' ? font.name : previewText}
                   </p>
                </div>
 
@@ -127,8 +127,8 @@ export default function View({
             containerClassName="flex justify-center items-center gap-3"
             pageLinkClassName="hover:cursor-pointer rounded-full border-2 bg-dark flex justify-center items-center w-12 h-12 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70"
             breakClassName="  p-2 text-sm font-bold"
-            previousLinkClassName={`${fonts.hasPrevPage === null ? 'opacity-10' : ''}  disabled:bg-gray-100 flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70`}
-            nextLinkClassName={`${fonts.hasNextPage === null ? 'opacity-10' : ''} flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70`}
+            previousLinkClassName={`${fonts.hasPrevPage ? '' : 'opacity-10'}  disabled:bg-gray-100 flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70`}
+            nextLinkClassName={`${fonts.hasNextPage ? '' : 'opacity-10'} flex justify-center items-center w-12 h-12 rounded-full border-2 bg-dark p-2 text-sm font-bold text-white transition duration-300 hover:bg-opacity-70`}
             activeLinkClassName="bg-white border-dark !text-dark"
             marginPagesDisplayed={1}
             onPageChange={(e) => {

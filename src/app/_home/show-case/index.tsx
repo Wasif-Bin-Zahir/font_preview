@@ -6,7 +6,7 @@ import View from './view'
 import { FontData } from '@/types'
 
 export type TextTransform = 'uppercase' | 'lowercase' | 'capitalize' | 'none'
-const defaultText = 'The quick brown fox jumps over the lazy dog'
+const defaultText = ''
 
 export default function ShowCase({ fonts }: { fonts: FontData }) {
    const [previewText, setPreviewText] = useState(defaultText)

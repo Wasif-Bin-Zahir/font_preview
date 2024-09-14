@@ -31,9 +31,9 @@ export default async function Home({
 
    return (
       <div className="mx-auto min-h-dvh max-w-screen-lg">
-         <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed border-white py-3">
+         {/* <div className="mx-auto my-3 w-full max-w-screen-2xl border-b border-t border-dashed border-white py-3">
             <Search />
-         </div>
+         </div> */}
 
          <ShowCase fonts={fonts} />
       </div>
