@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Footer() {
    return (
@@ -13,8 +14,13 @@ export default function Footer() {
                   priority
                />
             </a>
-
             <p>© All rights reserved {new Date().getFullYear()} </p>
+            <small>
+               Developed by{' '}
+               <Link href="https://cloud-16.com" target="_blank">
+                  Cloud16
+               </Link>
+            </small>
          </div>
       </footer>
    )
